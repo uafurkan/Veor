@@ -270,7 +270,6 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1px;
       border: 1px solid var(--border);
-      perspective: 1200px;
     }
 
     /* ── Card ── */
@@ -412,142 +411,170 @@
     /* ── Card preview mockup ── */
     .card-preview {
       width: 100%;
-      border-radius: 6px;
+      border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--border);
-      background: #040404;
+      background: #050505;
       flex-shrink: 0;
     }
 
-    /* ·· Browser mockup (desktop) — 3D MacBook style ·· */
-    .mockup-browser {
-      display: flex; flex-direction: column;
-      perspective: 1200px;
-    }
-    .mockup-phone { display: none; }
-
+    /* ·· Browser chrome bar ·· */
     .browser-chrome {
       display: flex; align-items: center; gap: 8px;
-      padding: 0 12px; height: 30px;
-      background: linear-gradient(180deg, #151515, #0a0a0a);
+      padding: 0 10px; height: 28px;
+      background: #0e0e0e;
       border-bottom: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px 8px 0 0;
       flex-shrink: 0;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
     }
-    .browser-dots { display: flex; gap: 6px; }
+    .browser-dots { display: flex; gap: 5px; }
     .browser-dots b {
-      display: block; width: 8px; height: 8px;
+      display: block; width: 7px; height: 7px;
       border-radius: 50%;
       font-style: normal; font-weight: normal;
     }
     .browser-dots b:nth-child(1) { background: #ff5f57; }
     .browser-dots b:nth-child(2) { background: #ffbd2e; }
     .browser-dots b:nth-child(3) { background: #28c940; }
-
     .browser-url {
       flex: 1;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; color: #444;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.03);
-      padding: 4px 10px; border-radius: 5px;
+      font-size: 9px; color: #3a3a3a;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 3px 8px; border-radius: 4px;
       text-align: center; overflow: hidden;
       white-space: nowrap; text-overflow: ellipsis;
     }
-    .browser-viewport {
-      height: 160px; overflow: hidden; position: relative;
-      background: #fff;
-      border-radius: 0 0 8px 8px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-top: none;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-    .browser-scale-wrap {
-      position: absolute; top: 0; left: 0;
-      width: 900px; height: 600px;
-      transform-origin: top left;
-    }
-    .browser-scale-wrap iframe {
-      width: 100%; height: 100%; border: none;
-      pointer-events: none; display: block;
-    }
 
-    /* ·· Phone mockup (mobile) — iPhone 17 Pro Max ·· */
-    .phone-shell {
-      margin: 14px auto;
-      width: 125px;
-      border: 2px solid #1a1a1a;
-      border-radius: 42px;
+    /* ·· Static preview canvas ·· */
+    .browser-canvas {
+      height: 150px;
       overflow: hidden;
-      background: linear-gradient(135deg, #0d0d0d, #000);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04),
-                  inset 0 0 0 1px rgba(255,255,255,0.02),
-                  0 20px 60px rgba(0,0,0,0.8);
       position: relative;
-    }
-    .phone-shell::before {
-      content: '';
-      position: absolute; top: 8px; left: 50%;
-      transform: translateX(-50%);
-      width: 96px; height: 24px;
-      background: #000; border-radius: 0 0 16px 16px;
-      z-index: 3;
-    }
-    .phone-statusbar {
-      height: 28px; background: transparent;
-      border-bottom: none;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; z-index: 1;
-    }
-    .phone-viewport {
-      height: 212px; overflow: hidden; position: relative;
-      background: linear-gradient(to bottom, #1a1a1a 0%, #000 100%);
-    }
-    .phone-scale-wrap {
-      position: absolute; top: 0; left: 0;
-      width: 390px; height: 844px;
-      transform-origin: top left;
-    }
-    .phone-scale-wrap iframe {
-      width: 100%; height: 100%; border: none;
-      pointer-events: none; display: block;
+      background: #06060a;
     }
 
-    /* ·· Fallback when iframe is blocked ·· */
-    .preview-fallback {
-      position: absolute; inset: 0; z-index: 10;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 12px;
-      background: linear-gradient(135deg, rgba(10,10,10,0.95), rgba(4,4,4,0.95));
-      transition: opacity 0.5s;
-      pointer-events: auto;
+    /* paply.me preview */
+    .preview-paply {
+      padding: 18px 16px;
+      display: flex; flex-direction: column; gap: 10px;
     }
-    .preview-fallback.loaded { opacity: 0; pointer-events: none; }
-    .fallback-mark {
-      width: 42px; height: 42px;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px; font-weight: 500; color: #555;
-      background: rgba(255,255,255,0.03);
+    .preview-paply .p-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 4px;
     }
-    .fallback-url {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; color: #444; letter-spacing: 0.06em;
+    .preview-paply .p-logo {
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+      color: #e0e0e0; letter-spacing: -0.02em;
     }
-    .fallback-btn {
+    .preview-paply .p-btn {
+      font-size: 9px; color: #666; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 2px 7px;
       font-family: 'Inter', sans-serif;
-      font-size: 11px; font-weight: 500;
-      color: #f0f0f0;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 6px 14px; border-radius: 5px;
-      cursor: pointer; text-decoration: none;
-      transition: background 0.2s, border-color 0.2s;
-      letter-spacing: 0.04em;
     }
-    .fallback-btn:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.2); }
+    .preview-paply .p-tag {
+      display: inline-block; font-family: 'JetBrains Mono', monospace;
+      font-size: 8px; color: #4a9eff; background: rgba(74,158,255,0.08);
+      border: 1px solid rgba(74,158,255,0.18); border-radius: 20px; padding: 2px 8px;
+    }
+    .preview-paply .p-headline {
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 800;
+      color: #fff; letter-spacing: -0.04em; line-height: 1.1;
+    }
+    .preview-paply .p-headline span { color: #4a9eff; }
+    .preview-paply .p-sub {
+      font-size: 9px; color: #444; font-family: 'Inter', sans-serif; line-height: 1.5;
+    }
+    .preview-paply .p-input {
+      height: 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; display: flex; align-items: center; padding: 0 8px; gap: 6px;
+    }
+    .preview-paply .p-input span {
+      font-size: 8px; color: #333; font-family: 'JetBrains Mono', monospace;
+    }
+    .preview-paply .p-input em {
+      font-style: normal; margin-left: auto; font-size: 8px; color: #4a9eff;
+      background: rgba(74,158,255,0.15); padding: 1px 6px; border-radius: 3px;
+    }
+
+    /* s4l4ry.com preview */
+    .preview-salary { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .preview-salary .s-header {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .preview-salary .s-logo {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #e0e0e0;
+    }
+    .preview-salary .s-live {
+      font-size: 8px; color: #4ade80; font-family: 'JetBrains Mono', monospace;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .preview-salary .s-live::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%; background: #4ade80;
+    }
+    .preview-salary .s-title {
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
+      color: #fff; letter-spacing: -0.02em;
+    }
+    .preview-salary .s-bars {
+      display: flex; align-items: flex-end; gap: 4px; height: 52px; padding-top: 4px;
+    }
+    .preview-salary .s-bar {
+      flex: 1; border-radius: 3px 3px 0 0;
+      background: rgba(255,255,255,0.06);
+    }
+    .preview-salary .s-bar.hi { background: linear-gradient(to top, #3b82f6, #60a5fa); }
+    .preview-salary .s-bar.mid { background: rgba(255,255,255,0.1); }
+    .preview-salary .s-labels {
+      display: flex; justify-content: space-between;
+    }
+    .preview-salary .s-labels span {
+      font-size: 7px; color: #333; font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* dinememento preview */
+    .preview-dine { padding: 0; overflow: hidden; height: 100%; position: relative; }
+    .preview-dine .d-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0d0806 0%, #1a0f08 40%, #0a0806 100%);
+    }
+    .preview-dine .d-content {
+      position: relative; z-index: 1; padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .preview-dine .d-logo {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .preview-dine .d-logo small {
+      font-family: 'JetBrains Mono', monospace; font-size: 6px;
+      letter-spacing: 0.3em; color: #8b6b4a; text-transform: uppercase;
+    }
+    .preview-dine .d-logo strong {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+      color: #e8d5b0; letter-spacing: -0.01em;
+    }
+    .preview-dine .d-title {
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700;
+      color: #f5e6c8; letter-spacing: -0.03em; line-height: 1.2;
+    }
+    .preview-dine .d-cards {
+      display: flex; gap: 6px; margin-top: 2px;
+    }
+    .preview-dine .d-card {
+      flex: 1; height: 52px; border-radius: 6px; overflow: hidden; position: relative;
+      background: #1c1008; border: 1px solid rgba(255,200,100,0.08);
+    }
+    .preview-dine .d-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    }
+    .preview-dine .d-card span {
+      position: absolute; bottom: 4px; left: 6px; z-index: 1;
+      font-size: 7px; color: rgba(255,220,150,0.7);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mockup-phone { display: none; }
 
     /* ── Footer ── */
     footer {
@@ -1106,34 +1133,21 @@
           </div>
 
           <div class="card-preview">
-            <div class="mockup-browser">
-              <div class="browser-chrome">
-                <span class="browser-dots"><b></b><b></b><b></b></span>
-                <span class="browser-url">paply.me</span>
-              </div>
-              <div class="browser-viewport" data-src="https://paply.me">
-                <div class="browser-scale-wrap">
-                  <iframe src="https://paply.me" loading="lazy" tabindex="-1" title="paply.me preview" aria-hidden="true"></iframe>
-                </div>
-                <div class="preview-fallback">
-                  <div class="fallback-mark">Pp</div>
-                  <span class="fallback-url">paply.me</span>
-                  <a href="https://paply.me" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
-                </div>
-              </div>
+            <div class="browser-chrome">
+              <span class="browser-dots"><b></b><b></b><b></b></span>
+              <span class="browser-url">paply.me</span>
             </div>
-            <div class="mockup-phone">
-              <div class="phone-shell">
-                <div class="phone-statusbar"></div>
-                <div class="phone-viewport">
-                  <div class="phone-scale-wrap">
-                    <iframe src="https://paply.me" loading="lazy" tabindex="-1" title="paply.me mobile" aria-hidden="true"></iframe>
-                  </div>
-                  <div class="preview-fallback">
-                    <div class="fallback-mark">Pp</div>
-                    <span class="fallback-url">paply.me</span>
-                    <a href="https://paply.me" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
-                  </div>
+            <div class="browser-canvas">
+              <div class="preview-paply">
+                <div class="p-nav">
+                  <span class="p-logo">paply</span>
+                  <span class="p-btn">Sign in</span>
+                </div>
+                <span class="p-tag">job applications, automated</span>
+                <div class="p-headline">Paste a page.<br/><span>Application</span> done.</div>
+                <div class="p-input">
+                  <span>paste a job listing url...</span>
+                  <em>Apply →</em>
                 </div>
               </div>
             </div>
@@ -1166,34 +1180,29 @@
           </div>
 
           <div class="card-preview">
-            <div class="mockup-browser">
-              <div class="browser-chrome">
-                <span class="browser-dots"><b></b><b></b><b></b></span>
-                <span class="browser-url">s4l4ry.com</span>
-              </div>
-              <div class="browser-viewport">
-                <div class="browser-scale-wrap">
-                  <iframe src="https://s4l4ry.com" loading="lazy" tabindex="-1" title="s4l4ry.com preview" aria-hidden="true"></iframe>
-                </div>
-                <div class="preview-fallback">
-                  <div class="fallback-mark">S$</div>
-                  <span class="fallback-url">s4l4ry.com</span>
-                  <a href="https://s4l4ry.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
-                </div>
-              </div>
+            <div class="browser-chrome">
+              <span class="browser-dots"><b></b><b></b><b></b></span>
+              <span class="browser-url">s4l4ry.com</span>
             </div>
-            <div class="mockup-phone">
-              <div class="phone-shell">
-                <div class="phone-statusbar"></div>
-                <div class="phone-viewport">
-                  <div class="phone-scale-wrap">
-                    <iframe src="https://s4l4ry.com" loading="lazy" tabindex="-1" title="s4l4ry.com mobile" aria-hidden="true"></iframe>
-                  </div>
-                  <div class="preview-fallback">
-                    <div class="fallback-mark">S$</div>
-                    <span class="fallback-url">s4l4ry.com</span>
-                    <a href="https://s4l4ry.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
-                  </div>
+            <div class="browser-canvas">
+              <div class="preview-salary">
+                <div class="s-header">
+                  <span class="s-logo">S4L4RY</span>
+                  <span class="s-live">live data</span>
+                </div>
+                <div class="s-title">What are you worth?</div>
+                <div class="s-bars">
+                  <div class="s-bar mid" style="height:40%"></div>
+                  <div class="s-bar mid" style="height:55%"></div>
+                  <div class="s-bar hi"  style="height:75%"></div>
+                  <div class="s-bar hi"  style="height:90%"></div>
+                  <div class="s-bar hi"  style="height:100%"></div>
+                  <div class="s-bar mid" style="height:70%"></div>
+                  <div class="s-bar mid" style="height:50%"></div>
+                  <div class="s-bar mid" style="height:35%"></div>
+                </div>
+                <div class="s-labels">
+                  <span>junior</span><span>mid</span><span style="color:#60a5fa">senior</span><span>lead</span>
                 </div>
               </div>
             </div>
@@ -1229,33 +1238,23 @@
           </div>
 
           <div class="card-preview">
-            <div class="mockup-browser">
-              <div class="browser-chrome">
-                <span class="browser-dots"><b></b><b></b><b></b></span>
-                <span class="browser-url">dinememento.com</span>
-              </div>
-              <div class="browser-viewport">
-                <div class="browser-scale-wrap">
-                  <iframe src="https://dinememento.com" loading="lazy" tabindex="-1" title="dinememento preview" aria-hidden="true"></iframe>
-                </div>
-                <div class="preview-fallback">
-                  <div class="fallback-mark">Dm</div>
-                  <span class="fallback-url">dinememento.com</span>
-                  <a href="https://dinememento.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
-                </div>
-              </div>
+            <div class="browser-chrome">
+              <span class="browser-dots"><b></b><b></b><b></b></span>
+              <span class="browser-url">dinememento.com</span>
             </div>
-            <div class="mockup-phone">
-              <div class="phone-shell">
-                <div class="phone-statusbar"></div>
-                <div class="phone-viewport">
-                  <div class="phone-scale-wrap">
-                    <iframe src="https://dinememento.com" loading="lazy" tabindex="-1" title="dinememento mobile" aria-hidden="true"></iframe>
+            <div class="browser-canvas">
+              <div class="preview-dine">
+                <div class="d-bg"></div>
+                <div class="d-content">
+                  <div class="d-logo">
+                    <small>dine</small>
+                    <strong>memento</strong>
                   </div>
-                  <div class="preview-fallback">
-                    <div class="fallback-mark">Dm</div>
-                    <span class="fallback-url">dinememento.com</span>
-                    <a href="https://dinememento.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
+                  <div class="d-title">Remember every<br/>great meal.</div>
+                  <div class="d-cards">
+                    <div class="d-card" style="background:linear-gradient(135deg,#1c1008,#2a1a0a)"><span>Nusr-et</span></div>
+                    <div class="d-card" style="background:linear-gradient(135deg,#0e0f14,#1a1620)"><span>Mikla</span></div>
+                    <div class="d-card" style="background:linear-gradient(135deg,#120a08,#1e110a)"><span>Nicole</span></div>
                   </div>
                 </div>
               </div>
@@ -1462,42 +1461,6 @@
       setTimeout(run, 350);
     })();
 
-    /* ── Preview iframe: dynamic scale via ResizeObserver ── */
-    // ResizeObserver fires on element-size changes including display:none→visible,
-    // catching both load and media-query breakpoint transitions.
-    (function initPreviewScale() {
-      function scaleVp(vp) {
-        const isBrowser = vp.classList.contains('browser-viewport');
-        const wrap = vp.querySelector('.browser-scale-wrap, .phone-scale-wrap');
-        if (!wrap) return;
-        const w = vp.clientWidth;
-        if (w <= 0) return;
-        wrap.style.transform = `scale(${(w / (isBrowser ? 900 : 390)).toFixed(4)})`;
-      }
-      const ro = new ResizeObserver(entries => entries.forEach(e => scaleVp(e.target)));
-      document.querySelectorAll('.browser-viewport, .phone-viewport').forEach(vp => {
-        ro.observe(vp);
-        scaleVp(vp); // initial call
-      });
-      // fallback for environments without ResizeObserver
-      window.addEventListener('resize', () => {
-        document.querySelectorAll('.browser-viewport, .phone-viewport').forEach(scaleVp);
-      }, { passive: true });
-    })();
-
-    /* ── Iframe load detection: hide fallback only on confirmed cross-origin load ── */
-    document.querySelectorAll('.card-preview iframe').forEach(iframe => {
-      iframe.addEventListener('load', function () {
-        try {
-          void this.contentWindow.location.href;
-          // No error = same-origin or blocked blank page — keep fallback visible
-        } catch (_) {
-          // SecurityError = cross-origin loaded successfully → hide fallback
-          const fb = this.closest('.browser-viewport, .phone-viewport')?.querySelector('.preview-fallback');
-          if (fb) fb.classList.add('loaded');
-        }
-      });
-    });
 
     /* ── Card: cursor glow + subtle 3D tilt ── */
     document.querySelectorAll('.card').forEach(card => {
