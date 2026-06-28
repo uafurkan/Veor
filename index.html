@@ -285,11 +285,8 @@
       gap: 20px;
       transition: background 0.25s, transform 0.18s ease-out;
       overflow: hidden;
-      transform-style: preserve-3d;
       will-change: transform;
     }
-
-    .card > *:not(.card-preview) { transform: translateZ(20px); }
 
     .card::before {
       content: '';
@@ -461,13 +458,10 @@
     .browser-viewport {
       height: 160px; overflow: hidden; position: relative;
       background: #fff;
-      border-radius: 0 0 12px 12px;
-      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 0 0 8px 8px;
+      border: 1px solid rgba(255,255,255,0.06);
       border-top: none;
-      transform: rotateX(8deg);
-      transform-origin: top center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.3),
-                  inset 0 1px 0 rgba(255,255,255,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
     .browser-scale-wrap {
       position: absolute; top: 0; left: 0;
@@ -1491,20 +1485,14 @@
       }, { passive: true });
     })();
 
-    /* ── Iframe load detection: hide fallback if real content loaded ── */
+    /* ── Iframe load detection: hide fallback only on confirmed cross-origin load ── */
     document.querySelectorAll('.card-preview iframe').forEach(iframe => {
       iframe.addEventListener('load', function () {
         try {
-          // Cross-origin success → accessing href throws SecurityError
           void this.contentWindow.location.href;
-          // Reached here: same-origin or blank (about:blank = blocked)
-          const href = this.contentWindow.location.href;
-          if (href && href !== 'about:blank') {
-            const fb = this.closest('.browser-viewport, .phone-viewport')?.querySelector('.preview-fallback');
-            if (fb) fb.classList.add('loaded');
-          }
+          // No error = same-origin or blocked blank page — keep fallback visible
         } catch (_) {
-          // SecurityError = cross-origin content loaded successfully
+          // SecurityError = cross-origin loaded successfully → hide fallback
           const fb = this.closest('.browser-viewport, .phone-viewport')?.querySelector('.preview-fallback');
           if (fb) fb.classList.add('loaded');
         }
