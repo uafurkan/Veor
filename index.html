@@ -524,24 +524,36 @@
     .preview-fallback {
       position: absolute; inset: 0; z-index: 2;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 8px;
-      background: #040404;
+      align-items: center; justify-content: center; gap: 12px;
+      background: linear-gradient(135deg, rgba(10,10,10,0.95), rgba(4,4,4,0.95));
       transition: opacity 0.5s;
-      pointer-events: none;
+      pointer-events: auto;
     }
     .preview-fallback.loaded { opacity: 0; pointer-events: none; }
     .fallback-mark {
-      width: 34px; height: 34px;
-      border: 1px solid var(--border); border-radius: 8px;
+      width: 42px; height: 42px;
+      border: 1.5px solid var(--border); border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; color: #2a2a2a;
-      background: rgba(255,255,255,0.015);
+      font-size: 14px; font-weight: 500; color: #555;
+      background: rgba(255,255,255,0.03);
     }
     .fallback-url {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; color: #222; letter-spacing: 0.08em;
+      font-size: 10px; color: #444; letter-spacing: 0.06em;
     }
+    .fallback-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 500;
+      color: #f0f0f0;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 6px 14px; border-radius: 5px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .fallback-btn:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.2); }
 
     /* ── Footer ── */
     footer {
@@ -717,6 +729,7 @@
                 <div class="preview-fallback">
                   <div class="fallback-mark">Pp</div>
                   <span class="fallback-url">paply.me</span>
+                  <a href="https://paply.me" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
                 </div>
               </div>
             </div>
@@ -730,6 +743,7 @@
                   <div class="preview-fallback">
                     <div class="fallback-mark">Pp</div>
                     <span class="fallback-url">paply.me</span>
+                    <a href="https://paply.me" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
                   </div>
                 </div>
               </div>
@@ -775,6 +789,7 @@
                 <div class="preview-fallback">
                   <div class="fallback-mark">S$</div>
                   <span class="fallback-url">s4l4ry.com</span>
+                  <a href="https://s4l4ry.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
                 </div>
               </div>
             </div>
@@ -788,6 +803,7 @@
                   <div class="preview-fallback">
                     <div class="fallback-mark">S$</div>
                     <span class="fallback-url">s4l4ry.com</span>
+                    <a href="https://s4l4ry.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
                   </div>
                 </div>
               </div>
@@ -836,6 +852,7 @@
                 <div class="preview-fallback">
                   <div class="fallback-mark">Dm</div>
                   <span class="fallback-url">dinememento.com</span>
+                  <a href="https://dinememento.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
                 </div>
               </div>
             </div>
@@ -849,6 +866,7 @@
                   <div class="preview-fallback">
                     <div class="fallback-mark">Dm</div>
                     <span class="fallback-url">dinememento.com</span>
+                    <a href="https://dinememento.com" target="_blank" rel="noopener" class="fallback-btn">Visit Site</a>
                   </div>
                 </div>
               </div>
