@@ -843,9 +843,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 24px 0;
+      padding: 8px 20px 0;
       position: relative;
       z-index: 4;
+      gap: 8px;
     }
 
     .statusbar-time {
@@ -878,34 +879,27 @@
       height: 480px;
     }
 
-    /* Dynamic Island — floating pill inside screen */
+    /* Dynamic Island — pill in the center of statusbar */
     .showcase-dynamic-island {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 95px;
-      height: 28px;
+      width: 90px;
+      height: 26px;
       background: #000;
       border-radius: 20px;
-      z-index: 20;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.06),
-        0 2px 8px rgba(0,0,0,0.8);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.07);
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding-right: 10px;
-      gap: 5px;
+      padding-right: 9px;
     }
 
     /* Camera dot inside Dynamic Island */
     .showcase-dynamic-island::after {
       content: '';
-      width: 9px; height: 9px;
+      width: 8px; height: 8px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #1a3a5c, #0a1a2e);
-      box-shadow: 0 0 0 1.5px rgba(255,255,255,0.04), inset 0 0 3px rgba(0,100,255,0.15);
+      background: radial-gradient(circle at 35% 35%, #1a3a5c, #080f1a);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
     }
 
     .showcase-iframe-wrap {
@@ -1331,6 +1325,7 @@
           <div class="showcase-phone-body" id="showcasePhone">
               <div class="showcase-statusbar">
               <span class="statusbar-time" id="showcaseTime">9:41</span>
+              <div class="showcase-dynamic-island"></div>
               <div class="statusbar-icons">
                 <!-- Signal -->
                 <svg viewBox="0 0 17 12"><rect x="0" y="6" width="3" height="6" rx="1"/><rect x="4.5" y="4" width="3" height="8" rx="1"/><rect x="9" y="1.5" width="3" height="10.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
@@ -1342,9 +1337,6 @@
             </div>
 
             <div class="showcase-screen" id="showcaseScreen">
-              <!-- Dynamic Island floating pill -->
-              <div class="showcase-dynamic-island"></div>
-
               <!-- iframe content -->
               <div class="showcase-iframe-wrap" id="showcaseIframeWrap">
                 <iframe
