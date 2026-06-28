@@ -834,111 +834,125 @@
     }
     .site-btn.active .site-btn-arrow { opacity: 1; }
 
-    /* ── 3D Showcase Phone ── */
-    .showcase-phone {
-      perspective: 1000px;
-      flex-shrink: 0;
-    }
+    /* ── Showcase Phone — iPhone 15/16 Pro style ── */
+    .showcase-phone { flex-shrink: 0; }
 
     .showcase-phone-body {
-      width: 260px;
-      border-radius: 50px;
-      background: linear-gradient(145deg, #1c1c1e 0%, #0a0a0a 40%, #111 100%);
-      border: 1.5px solid rgba(255,255,255,0.1);
+      width: 248px;
+      border-radius: 46px;
+      /* Titanium-style dark frame */
+      background: linear-gradient(160deg, #2a2a2c 0%, #1a1a1c 50%, #111 100%);
+      padding: 9px 7px 16px;
       box-shadow:
-        0 0 0 1px rgba(0,0,0,0.8),
-        0 40px 80px rgba(0,0,0,0.9),
-        0 20px 40px rgba(0,0,0,0.5),
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        inset 0 -1px 0 rgba(255,255,255,0.03);
+        0 0 0 0.5px rgba(255,255,255,0.18),
+        inset 0 0 0 0.5px rgba(255,255,255,0.06),
+        0 50px 100px rgba(0,0,0,0.95),
+        0 20px 40px rgba(0,0,0,0.6);
       position: relative;
     }
 
-    /* Side buttons (physical) */
+    /* Power button — right */
     .showcase-phone-body::before {
       content: '';
       position: absolute;
-      right: -3px; top: 80px;
-      width: 3px; height: 60px;
-      background: linear-gradient(to bottom, #1a1a1a, #111);
+      right: -2px; top: 110px;
+      width: 2px; height: 56px;
+      background: #2a2a2c;
       border-radius: 0 2px 2px 0;
-      box-shadow: 0 20px 0 #111, 0 40px 0 #111;
     }
 
-    /* Volume buttons */
+    /* Volume buttons — left */
     .showcase-phone-body::after {
       content: '';
       position: absolute;
-      left: -3px; top: 100px;
-      width: 3px; height: 40px;
-      background: linear-gradient(to bottom, #1a1a1a, #111);
+      left: -2px; top: 90px;
+      width: 2px; height: 36px;
+      background: #2a2a2c;
       border-radius: 2px 0 0 2px;
-      box-shadow: 0 50px 0 #111;
+      box-shadow: 0 48px 0 #2a2a2c;
     }
 
-    /* Status bar — sits above screen, inside bezel */
+    /* Screen area — edge-to-edge */
+    .showcase-screen-area {
+      border-radius: 40px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+    }
+
+    /* Status bar row — time left, DI center, icons right */
     .showcase-statusbar {
       height: 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 20px 0;
+      padding: 14px 18px 0;
       position: relative;
-      z-index: 4;
-      gap: 8px;
+      z-index: 10;
     }
 
     .statusbar-time {
       font-family: 'Inter', sans-serif;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 600;
-      color: rgba(255,255,255,0.8);
-      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: -0.02em;
     }
 
     .statusbar-icons {
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      display: flex; align-items: center; gap: 5px;
     }
-
     .statusbar-icons svg {
-      width: 14px;
-      height: 10px;
-      fill: rgba(255,255,255,0.7);
+      width: 15px; height: 11px;
+      fill: rgba(255,255,255,0.8);
     }
 
-    /* Phone screen */
-    .showcase-screen {
-      margin: 0 8px;
-      border-radius: 32px 32px 40px 40px;
-      overflow: hidden;
-      background: #000;
-      position: relative;
-      height: 480px;
-    }
-
-    /* Dynamic Island — pill in the center of statusbar */
+    /* Dynamic Island — absolute pill at top center of screen */
     .showcase-dynamic-island {
-      width: 90px;
-      height: 26px;
+      position: absolute;
+      top: 8px; left: 50%;
+      transform: translateX(-50%);
+      width: 100px; height: 32px;
       background: #000;
-      border-radius: 20px;
-      flex-shrink: 0;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.07);
+      border-radius: 22px;
+      z-index: 20;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 2px 12px rgba(0,0,0,0.9);
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding-right: 9px;
+      padding-right: 10px;
+      gap: 6px;
     }
 
-    /* Camera dot inside Dynamic Island */
+    /* Proximity sensor dot */
+    .showcase-dynamic-island::before {
+      content: '';
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-right: 4px;
+    }
+
+    /* Camera dot */
     .showcase-dynamic-island::after {
       content: '';
-      width: 8px; height: 8px;
+      width: 10px; height: 10px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #1a3a5c, #080f1a);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+      background: radial-gradient(circle at 35% 35%, #1c3d5e, #060d14);
+      box-shadow:
+        0 0 0 1.5px rgba(0,0,0,0.8),
+        inset 0 0 4px rgba(0,80,200,0.2);
+    }
+
+    /* Phone screen content area */
+    .showcase-screen {
+      overflow: hidden;
+      position: relative;
+      background: #000;
+      height: 490px;
     }
 
     /* Static mobile mockups inside phone screen */
@@ -1324,18 +1338,20 @@
         <!-- 3D Phone -->
         <div class="showcase-phone">
           <div class="showcase-phone-body" id="showcasePhone">
-              <div class="showcase-statusbar">
-              <span class="statusbar-time" id="showcaseTime">9:41</span>
+            <div class="showcase-screen-area">
+
+              <!-- Dynamic Island — absolute, top center of screen -->
               <div class="showcase-dynamic-island"></div>
-              <div class="statusbar-icons">
-                <!-- Signal -->
-                <svg viewBox="0 0 17 12"><rect x="0" y="6" width="3" height="6" rx="1"/><rect x="4.5" y="4" width="3" height="8" rx="1"/><rect x="9" y="1.5" width="3" height="10.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
-                <!-- Wifi -->
-                <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4.5C3.8 1.8 7.2.5 8 .5s4.2 1.3 7 4" stroke-linecap="round"/><path d="M3.2 7C4.8 5.4 6.5 4.5 8 4.5s3.2.9 4.8 2.5" stroke-linecap="round"/><path d="M5.5 9.5C6.2 8.8 7.1 8.5 8 8.5s1.8.3 2.5 1" stroke-linecap="round"/><circle cx="8" cy="12" r="1" fill="currentColor"/></svg>
-                <!-- Battery -->
-                <svg viewBox="0 0 25 12"><rect x="0" y="1" width="21" height="10" rx="3" stroke="currentColor" stroke-width="1.2" fill="none"/><rect x="22" y="4" width="2.5" height="4" rx="1" fill="currentColor" opacity=".4"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="currentColor"/></svg>
+
+              <!-- Status bar wraps around DI -->
+              <div class="showcase-statusbar">
+                <span class="statusbar-time" id="showcaseTime">9:41</span>
+                <div class="statusbar-icons">
+                  <svg viewBox="0 0 17 12"><rect x="0" y="6" width="3" height="6" rx="1"/><rect x="4.5" y="4" width="3" height="8" rx="1"/><rect x="9" y="1.5" width="3" height="10.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
+                  <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4.5C3.8 1.8 7.2.5 8 .5s4.2 1.3 7 4" stroke-linecap="round"/><path d="M3.2 7C4.8 5.4 6.5 4.5 8 4.5s3.2.9 4.8 2.5" stroke-linecap="round"/><path d="M5.5 9.5C6.2 8.8 7.1 8.5 8 8.5s1.8.3 2.5 1" stroke-linecap="round"/><circle cx="8" cy="12" r="1" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 25 12"><rect x="0" y="1" width="21" height="10" rx="3" stroke="currentColor" stroke-width="1.2" fill="none"/><rect x="22" y="4" width="2.5" height="4" rx="1" fill="currentColor" opacity=".4"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="currentColor"/></svg>
+                </div>
               </div>
-            </div>
 
             <div class="showcase-screen" id="showcaseScreen">
 
@@ -1427,13 +1443,14 @@
                 </div>
               </div>
 
-            </div>
+            </div><!-- /.showcase-screen -->
+            </div><!-- /.showcase-screen-area -->
 
             <div class="showcase-chin">
               <div class="showcase-home-indicator"></div>
             </div>
-          </div>
-        </div>
+          </div><!-- /.showcase-phone-body -->
+        </div><!-- /.showcase-phone -->
 
       </div>
 
