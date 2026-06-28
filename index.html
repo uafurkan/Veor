@@ -941,89 +941,87 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
     }
 
-    .showcase-iframe-wrap {
-      position: absolute;
-      top: 0; left: 0;
-      width: 390px; height: 844px;
-      transform-origin: top left;
+    /* Static mobile mockups inside phone screen */
+    .showcase-mockup {
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
     }
+    .showcase-mockup.active { opacity: 1; pointer-events: auto; }
 
-    .showcase-iframe-wrap iframe {
-      width: 100%; height: 100%;
-      border: none;
-      display: block;
-    }
-
-    /* Fallback for blocked sites */
-    .showcase-fallback {
-      position: absolute;
-      inset: 0; z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: linear-gradient(160deg, #0a0a0a 0%, #050505 100%);
-    }
-    .showcase-fallback.hidden { display: none; }
-
-    .showcase-fallback-logo {
-      width: 52px; height: 52px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      font-weight: 500;
-      color: #555;
-      background: rgba(255,255,255,0.02);
-    }
-
-    .showcase-fallback-url {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: #444;
-      letter-spacing: 0.06em;
-    }
-
-    .showcase-visit-btn {
+    /* ── paply.me mockup ── */
+    .smock-paply {
+      background: #06060a;
+      height: 100%; padding: 18px 16px;
+      display: flex; flex-direction: column; gap: 12px;
       font-family: 'Inter', sans-serif;
-      font-size: 12px; font-weight: 500;
-      color: #e0e0e0;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 8px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s;
-      letter-spacing: 0.04em;
     }
-    .showcase-visit-btn:hover { background: rgba(255,255,255,0.14); }
+    .sm-nav { display: flex; align-items: center; justify-content: space-between; }
+    .sm-logo-paply { font-weight: 700; font-size: 13px; color: #f0f0f0; letter-spacing: -0.02em; }
+    .sm-signin { font-size: 10px; color: #555; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 5px; padding: 3px 9px; }
+    .sm-tag { display: inline-block; font-size: 9px; color: #4a9eff; background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 20px; padding: 3px 10px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+    .sm-headline { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.04em; line-height: 1.1; }
+    .sm-headline .sm-blue { color: #4a9eff; }
+    .sm-input-row { display: flex; align-items: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 8px; padding: 8px 10px; gap: 8px; }
+    .sm-input-row span { font-size: 10px; color: #333; flex: 1; font-family: 'JetBrains Mono', monospace; }
+    .sm-input-row em { font-style: normal; font-size: 10px; color: #4a9eff; background: rgba(74,158,255,0.15); padding: 2px 8px; border-radius: 4px; }
+    .sm-stats { display: flex; gap: 8px; }
+    .sm-stat { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 8px; text-align: center; }
+    .sm-stat-num { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+    .sm-stat-label { font-size: 8px; color: #444; margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+    .sm-cards-row { display: flex; gap: 6px; }
+    .sm-mini-card { flex: 1; background: rgba(74,158,255,0.06); border: 1px solid rgba(74,158,255,0.12); border-radius: 6px; padding: 8px; }
+    .sm-mini-card-label { font-size: 8px; color: #555; font-family: 'JetBrains Mono', monospace; }
+    .sm-mini-card-val { font-size: 11px; font-weight: 600; color: #c0d8ff; margin-top: 2px; }
 
-    /* Loading skeleton */
-    .showcase-loading {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #050505;
-      z-index: 8;
-      transition: opacity 0.4s;
+    /* ── s4l4ry.com mockup ── */
+    .smock-salary {
+      background: #05050a;
+      height: 100%; padding: 18px 16px;
+      display: flex; flex-direction: column; gap: 11px;
+      font-family: 'Inter', sans-serif;
     }
-    .showcase-loading.done { opacity: 0; pointer-events: none; }
+    .sm-logo-salary { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 11px; color: #e0e0e0; letter-spacing: 0.06em; }
+    .sm-live-badge { font-size: 9px; color: #4ade80; display: flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono', monospace; }
+    .sm-live-badge::before { content: ''; width: 5px; height: 5px; background: #4ade80; border-radius: 50%; display: inline-block; }
+    .sm-salary-hl { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1.15; }
+    .sm-search-bar { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 12px; font-size: 10px; color: #444; font-family: 'JetBrains Mono', monospace; }
+    .sm-range-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .sm-range-bar { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; position: relative; }
+    .sm-range-fill { position: absolute; left: 25%; right: 15%; height: 100%; background: linear-gradient(90deg, #3b82f6, #60a5fa); border-radius: 2px; }
+    .sm-range-marker { position: absolute; left: 60%; top: -4px; width: 12px; height: 12px; border-radius: 50%; background: #60a5fa; border: 2px solid #05050a; transform: translateX(-50%); }
+    .sm-range-labels { display: flex; justify-content: space-between; }
+    .sm-range-labels span { font-size: 8px; color: #444; font-family: 'JetBrains Mono', monospace; }
+    .sm-range-labels .sm-avg { color: #60a5fa; }
+    .sm-role-list { display: flex; flex-direction: column; gap: 6px; }
+    .sm-role { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; }
+    .sm-role span:first-child { font-size: 11px; color: #bbb; }
+    .sm-role-sal { font-size: 11px; font-weight: 600; color: #60a5fa; font-family: 'JetBrains Mono', monospace; }
+    .sm-role.highlight { background: rgba(96,165,250,0.07); border-color: rgba(96,165,250,0.18); }
 
-    .showcase-spinner {
-      width: 20px; height: 20px;
-      border: 1.5px solid rgba(255,255,255,0.08);
-      border-top-color: rgba(255,255,255,0.4);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+    /* ── dinememento.com mockup ── */
+    .smock-dine {
+      background: linear-gradient(160deg, #0d0806 0%, #110b07 100%);
+      height: 100%; padding: 18px 16px;
+      display: flex; flex-direction: column; gap: 12px;
+      font-family: 'Inter', sans-serif;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .sm-dine-logo { line-height: 1.1; }
+    .sm-dine-logo small { font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.3em; color: #7a5c3a; text-transform: uppercase; }
+    .sm-dine-logo strong { display: block; font-size: 14px; font-weight: 600; color: #e8d5b0; }
+    .sm-dine-hl { font-size: 20px; font-weight: 800; color: #f5e6c8; letter-spacing: -0.03em; line-height: 1.15; }
+    .sm-rest-grid { display: flex; flex-direction: column; gap: 7px; }
+    .sm-rest-card { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,200,100,0.07); }
+    .sm-rest-card-1 { background: linear-gradient(135deg, #1c1008, #251508); }
+    .sm-rest-card-2 { background: linear-gradient(135deg, #0e0f14, #141420); }
+    .sm-rest-card-3 { background: linear-gradient(135deg, #120a08, #1c1009); }
+    .sm-rest-avatar { width: 32px; height: 32px; border-radius: 6px; background: rgba(255,200,100,0.06); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .sm-rest-info { flex: 1; }
+    .sm-rest-name { font-size: 11px; font-weight: 600; color: #e0c89a; }
+    .sm-rest-meta { font-size: 9px; color: #6b5030; margin-top: 1px; }
+    .sm-rest-heart { font-size: 13px; color: #5a3a1a; }
+    .sm-rest-heart.saved { color: #e07040; }
 
     /* Phone bottom chin */
     .showcase-chin {
@@ -1068,34 +1066,26 @@
     @media (min-width: 601px) { .phone-showcase { display: none !important; } }
 
     @media (max-width: 700px) {
-      .showcase-inner {
-        flex-direction: column;
-        gap: 40px;
-      }
+      .phone-showcase { padding: 48px 20px 72px; gap: 40px; }
+      .showcase-inner { flex-direction: column; gap: 28px; align-items: center; }
       .site-selectors {
-        flex-direction: row;
-        order: 0;
-        gap: 8px;
+        flex-direction: row; order: -1;
+        gap: 8px; width: 100%;
+        overflow-x: auto; padding-bottom: 2px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
       }
+      .site-selectors::-webkit-scrollbar { display: none; }
       .site-btn {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        min-width: 90px;
-        padding: 10px 14px;
-        gap: 6px;
+        flex-direction: row; min-width: 0;
+        padding: 10px 14px; flex-shrink: 0;
       }
-      .site-btn-info { display: none; }
+      .site-btn-info { display: block; }
+      .site-btn-name { font-size: 10px; }
+      .site-btn-tag { display: none; }
       .site-btn-arrow { display: none; }
-      .showcase-phone-body {
-        width: 220px;
-        transform: rotateY(0deg) rotateX(2deg);
-      }
-      .showcase-phone-body:hover {
-        transform: rotateY(0deg) rotateX(1deg);
-      }
-      .showcase-screen { height: 400px; }
-      .phone-showcase { padding: 60px 20px 80px; }
+      .showcase-phone-body { width: 230px; }
+      .showcase-screen { height: 430px; }
     }
   </style>
 </head>
@@ -1348,28 +1338,95 @@
             </div>
 
             <div class="showcase-screen" id="showcaseScreen">
-              <!-- iframe content -->
-              <div class="showcase-iframe-wrap" id="showcaseIframeWrap">
-                <iframe
-                  id="showcaseIframe"
-                  src="/api/proxy?url=https://paply.me"
-                  title="Site preview"
-                  allow="fullscreen"
-                  loading="lazy"
-                ></iframe>
+
+              <!-- paply.me mockup -->
+              <div class="showcase-mockup active" data-mockup="paply.me">
+                <div class="smock-paply">
+                  <div class="sm-nav">
+                    <span class="sm-logo-paply">paply</span>
+                    <span class="sm-signin">Sign in</span>
+                  </div>
+                  <span class="sm-tag">job applications, automated</span>
+                  <div class="sm-headline">Paste a page.<br/><span class="sm-blue">Application</span><br/>done.</div>
+                  <div class="sm-input-row">
+                    <span>paste a job listing url...</span>
+                    <em>Apply →</em>
+                  </div>
+                  <div class="sm-stats">
+                    <div class="sm-stat"><div class="sm-stat-num">2.4k</div><div class="sm-stat-label">applied</div></div>
+                    <div class="sm-stat"><div class="sm-stat-num">94%</div><div class="sm-stat-label">time saved</div></div>
+                    <div class="sm-stat"><div class="sm-stat-num">12k</div><div class="sm-stat-label">users</div></div>
+                  </div>
+                  <div class="sm-cards-row">
+                    <div class="sm-mini-card"><div class="sm-mini-card-label">last applied</div><div class="sm-mini-card-val">Figma · UX</div></div>
+                    <div class="sm-mini-card"><div class="sm-mini-card-label">status</div><div class="sm-mini-card-val">Interview</div></div>
+                  </div>
+                </div>
               </div>
 
-              <!-- Loading spinner -->
-              <div class="showcase-loading" id="showcaseLoading">
-                <div class="showcase-spinner"></div>
+              <!-- s4l4ry.com mockup -->
+              <div class="showcase-mockup" data-mockup="s4l4ry.com">
+                <div class="smock-salary">
+                  <div class="sm-nav">
+                    <span class="sm-logo-salary">S4L4RY</span>
+                    <span class="sm-live-badge">live data</span>
+                  </div>
+                  <div class="sm-salary-hl">What are<br/>you worth?</div>
+                  <div class="sm-search-bar">Software Engineer · Istanbul</div>
+                  <div class="sm-range-wrap">
+                    <div class="sm-range-bar">
+                      <div class="sm-range-fill"></div>
+                      <div class="sm-range-marker"></div>
+                    </div>
+                    <div class="sm-range-labels">
+                      <span>$60k</span><span class="sm-avg">avg $95k</span><span>$160k</span>
+                    </div>
+                  </div>
+                  <div class="sm-role-list">
+                    <div class="sm-role highlight"><span>Senior Dev</span><span class="sm-role-sal">$130k</span></div>
+                    <div class="sm-role"><span>Mid-level</span><span class="sm-role-sal">$95k</span></div>
+                    <div class="sm-role"><span>Junior</span><span class="sm-role-sal">$65k</span></div>
+                  </div>
+                </div>
               </div>
 
-              <!-- Fallback for blocked sites -->
-              <div class="showcase-fallback hidden" id="showcaseFallback">
-                <div class="showcase-fallback-logo" id="showcaseFallbackMark">Pp</div>
-                <span class="showcase-fallback-url" id="showcaseFallbackUrl">paply.me</span>
-                <a href="https://paply.me" target="_blank" rel="noopener" class="showcase-visit-btn" id="showcaseVisitBtn">Open in browser ↗</a>
+              <!-- dinememento.com mockup -->
+              <div class="showcase-mockup" data-mockup="dinememento.com">
+                <div class="smock-dine">
+                  <div class="sm-dine-logo">
+                    <small>DINE</small>
+                    <strong>memento</strong>
+                  </div>
+                  <div class="sm-dine-hl">Remember every<br/>great meal.</div>
+                  <div class="sm-rest-grid">
+                    <div class="sm-rest-card sm-rest-card-1">
+                      <div class="sm-rest-avatar">🥩</div>
+                      <div class="sm-rest-info">
+                        <div class="sm-rest-name">Nusr-et Steakhouse</div>
+                        <div class="sm-rest-meta">Beşiktaş · İstanbul · ★ 4.8</div>
+                      </div>
+                      <div class="sm-rest-heart saved">♥</div>
+                    </div>
+                    <div class="sm-rest-card sm-rest-card-2">
+                      <div class="sm-rest-avatar">🍽️</div>
+                      <div class="sm-rest-info">
+                        <div class="sm-rest-name">Mikla</div>
+                        <div class="sm-rest-meta">Beyoğlu · İstanbul · ★ 4.9</div>
+                      </div>
+                      <div class="sm-rest-heart">♡</div>
+                    </div>
+                    <div class="sm-rest-card sm-rest-card-3">
+                      <div class="sm-rest-avatar">🌿</div>
+                      <div class="sm-rest-info">
+                        <div class="sm-rest-name">Nicole Restaurant</div>
+                        <div class="sm-rest-meta">Tophane · İstanbul · ★ 4.7</div>
+                      </div>
+                      <div class="sm-rest-heart">♡</div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </div>
 
             <div class="showcase-chin">
@@ -1525,108 +1582,47 @@
       });
     })();
 
-    /* ── Showcase phone iframe scale ── */
+    /* ── Showcase phone — mockup switcher ── */
     (function initShowcase() {
-      const phone = document.getElementById('showcasePhone');
-      const screen = document.getElementById('showcaseScreen');
-      const iframeWrap = document.getElementById('showcaseIframeWrap');
-      const iframe = document.getElementById('showcaseIframe');
-      const loading = document.getElementById('showcaseLoading');
-      const fallback = document.getElementById('showcaseFallback');
-      const fallbackMark = document.getElementById('showcaseFallbackMark');
-      const fallbackUrl = document.getElementById('showcaseFallbackUrl');
-      const visitBtn = document.getElementById('showcaseVisitBtn');
+      const showcaseTime = document.getElementById('showcaseTime');
       const siteName = document.getElementById('showcaseSiteName');
       const siteDesc = document.getElementById('showcaseSiteDesc');
       const siteLink = document.getElementById('showcaseSiteLink');
-      const showcaseTime = document.getElementById('showcaseTime');
 
       const siteInfo = {
-        'paply.me':        { desc: 'AI-powered job application toolkit', mark: 'Pp' },
-        's4l4ry.com':      { desc: 'Real compensation data, transparent benchmarks', mark: 'S$' },
-        'dinememento.com': { desc: 'Capture and relive your dining memories', mark: 'Dm' }
+        'paply.me':        { desc: 'AI-powered job application toolkit',        url: 'https://paply.me' },
+        's4l4ry.com':      { desc: 'Real compensation data, transparent benchmarks', url: 'https://s4l4ry.com' },
+        'dinememento.com': { desc: 'Capture and relive your dining memories',   url: 'https://dinememento.com' }
       };
 
-      // Live clock in status bar
-      function updateShowcaseClock() {
+      // Live clock
+      function updateClock() {
         const d = new Date();
-        const h = d.getHours(), m = d.getMinutes();
-        showcaseTime.textContent = `${h}:${String(m).padStart(2,'0')}`;
+        showcaseTime.textContent = `${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
       }
-      updateShowcaseClock();
-      setInterval(updateShowcaseClock, 30000);
+      updateClock();
+      setInterval(updateClock, 30000);
 
-      // Scale iframe to fill screen
-      function scaleShowcase() {
-        const w = screen.clientWidth;
-        if (w > 0) iframeWrap.style.transform = `scale(${(w / 390).toFixed(4)})`;
-      }
-      const ro = new ResizeObserver(scaleShowcase);
-      ro.observe(screen);
-      scaleShowcase();
+      // Switch active mockup
+      function switchMockup(site) {
+        document.querySelectorAll('.showcase-mockup').forEach(m => m.classList.remove('active'));
+        const target = document.querySelector(`.showcase-mockup[data-mockup="${site}"]`);
+        if (target) target.classList.add('active');
 
-      // Load a site into the phone
-      let loadTimer = null;
-      function loadSite(url, domain, mark) {
-        // Show loading, hide fallback
-        loading.classList.remove('done');
-        fallback.classList.add('hidden');
-
-        // Update info strip
-        const info = siteInfo[domain] || { desc: domain, mark: domain.slice(0,2) };
-        siteName.textContent = domain;
-        siteDesc.textContent = info.desc;
-        siteLink.textContent = `visit ${domain} ↗`;
-        siteLink.href = url;
-
-        // Update fallback content
-        fallbackMark.textContent = mark;
-        fallbackUrl.textContent = domain;
-        visitBtn.textContent = `Open in browser ↗`;
-        visitBtn.href = url;
-
-        // Load iframe
-        iframe.src = '';
-        clearTimeout(loadTimer);
-        loadTimer = setTimeout(() => {
-          iframe.src = url;
-        }, 50);
+        const info = siteInfo[site] || { desc: site, url: '#' };
+        if (siteName) siteName.textContent = site;
+        if (siteDesc) siteDesc.textContent = info.desc;
+        if (siteLink) { siteLink.textContent = `visit ${site} ↗`; siteLink.href = info.url; }
       }
 
-      // Detect iframe load success or failure
-      iframe.addEventListener('load', function () {
-        loading.classList.add('done');
-        try {
-          void this.contentWindow.location.href;
-          const href = this.contentWindow.location.href;
-          // about:blank or same-origin blank = loaded but empty
-          if (!href || href === 'about:blank') {
-            fallback.classList.remove('hidden');
-          }
-        } catch (_) {
-          // SecurityError = cross-origin loaded successfully — good!
-          fallback.classList.add('hidden');
-        }
-      });
-
-      // Fallback timer — if iframe takes >6s and we can't detect, show fallback
-      iframe.addEventListener('error', function () {
-        loading.classList.add('done');
-        fallback.classList.remove('hidden');
-      });
-
-      // Site selector buttons
+      // Button clicks
       document.querySelectorAll('.site-btn').forEach(btn => {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.site-btn').forEach(b => b.classList.remove('active'));
           this.classList.add('active');
-          loadSite(this.dataset.url, this.dataset.site, this.dataset.mark);
+          switchMockup(this.dataset.site);
         });
       });
-
-
-      // Initial load
-      scaleShowcase();
     })();
 
     /* ── Console signature ── */
