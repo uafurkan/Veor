@@ -420,35 +420,52 @@
       flex-shrink: 0;
     }
 
-    /* ·· Browser mockup (desktop default) ·· */
-    .mockup-browser { display: flex; flex-direction: column; }
-    .mockup-phone   { display: none; }
+    /* ·· Browser mockup (desktop) — 3D MacBook style ·· */
+    .mockup-browser {
+      display: flex; flex-direction: column;
+      perspective: 1200px;
+    }
+    .mockup-phone { display: none; }
 
     .browser-chrome {
       display: flex; align-items: center; gap: 8px;
-      padding: 0 10px; height: 28px;
-      background: #0d0d0d;
-      border-bottom: 1px solid var(--border);
+      padding: 0 12px; height: 30px;
+      background: linear-gradient(180deg, #151515, #0a0a0a);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px 8px 0 0;
       flex-shrink: 0;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
     }
-    .browser-dots { display: flex; gap: 4px; }
+    .browser-dots { display: flex; gap: 6px; }
     .browser-dots b {
-      display: block; width: 7px; height: 7px;
-      border-radius: 50%; background: #1e1e1e;
+      display: block; width: 8px; height: 8px;
+      border-radius: 50%;
       font-style: normal; font-weight: normal;
     }
+    .browser-dots b:nth-child(1) { background: #ff5f57; }
+    .browser-dots b:nth-child(2) { background: #ffbd2e; }
+    .browser-dots b:nth-child(3) { background: #28c940; }
+
     .browser-url {
       flex: 1;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; color: #2e2e2e;
-      background: #070707;
+      font-size: 10px; color: #444;
+      background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.03);
-      padding: 3px 8px; border-radius: 3px;
+      padding: 4px 10px; border-radius: 5px;
       text-align: center; overflow: hidden;
       white-space: nowrap; text-overflow: ellipsis;
     }
     .browser-viewport {
-      height: 162px; overflow: hidden; position: relative; background: #040404;
+      height: 160px; overflow: hidden; position: relative;
+      background: #fff;
+      border-radius: 0 0 12px 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-top: none;
+      transform: rotateX(8deg);
+      transform-origin: top center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3),
+                  inset 0 1px 0 rgba(255,255,255,0.4);
     }
     .browser-scale-wrap {
       position: absolute; top: 0; left: 0;
@@ -460,28 +477,36 @@
       pointer-events: none; display: block;
     }
 
-    /* ·· Phone mockup (mobile) ·· */
+    /* ·· Phone mockup (mobile) — iPhone 17 Pro Max ·· */
     .phone-shell {
       margin: 14px auto;
-      width: 116px;
-      border: 1.5px solid #1c1c1c;
-      border-radius: 20px;
+      width: 125px;
+      border: 2px solid #1a1a1a;
+      border-radius: 42px;
       overflow: hidden;
-      background: #040404;
-      box-shadow: 0 0 0 0.5px rgba(255,255,255,0.04),
-                  inset 0 0 0 0.5px rgba(255,255,255,0.02);
+      background: linear-gradient(135deg, #0d0d0d, #000);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04),
+                  inset 0 0 0 1px rgba(255,255,255,0.02),
+                  0 20px 60px rgba(0,0,0,0.8);
+      position: relative;
+    }
+    .phone-shell::before {
+      content: '';
+      position: absolute; top: 8px; left: 50%;
+      transform: translateX(-50%);
+      width: 96px; height: 24px;
+      background: #000; border-radius: 0 0 16px 16px;
+      z-index: 3;
     }
     .phone-statusbar {
-      height: 20px; background: #090909;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      height: 28px; background: transparent;
+      border-bottom: none;
       display: flex; align-items: center; justify-content: center;
-    }
-    .phone-statusbar::after {
-      content: ''; width: 38px; height: 4px;
-      border-radius: 2px; background: #1a1a1a;
+      position: relative; z-index: 1;
     }
     .phone-viewport {
-      height: 212px; overflow: hidden; position: relative; background: #040404;
+      height: 212px; overflow: hidden; position: relative;
+      background: linear-gradient(to bottom, #1a1a1a 0%, #000 100%);
     }
     .phone-scale-wrap {
       position: absolute; top: 0; left: 0;
