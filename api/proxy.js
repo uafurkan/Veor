@@ -60,23 +60,10 @@ export default async function handler(req, res) {
     html = html.replace(/if\s*\(\s*(?:window\.top|window\.self|top|self)\s*[!=]==?\s*(?:window\.top|window\.self|top|self|window)\s*\)[^}]*}/gi, '');
     html = html.replace(/(?:top|window\.top)\.location(?:\.href)?\s*=\s*(?:self|window\.self|window)\.location(?:\.href)?/gi, '');
 
-    // Inject iframe-safe script before </head>
-    const safeScript = `<script>
-try {
-  // Suppress uncaught errors (e.g. Next.js hydration in iframe)
-  window.onerror = function() { return true; };
-  window.addEventListener('error', function(e) { e.preventDefault(); e.stopPropagation(); }, true);
-  window.addEventListener('unhandledrejection', function(e) { e.preventDefault(); }, true);
-  // Neutralise frame-busting: make top === self from JS perspective
-  Object.defineProperty(window, 'top', { get: function(){ return window; } });
-  Object.defineProperty(window, 'parent', { get: function(){ return window; } });
-} catch(e) {}
-</script>`;
-    html = html.replace(/<\/head>/i, safeScript + '</head>');
-
-    // Inject <base> so remaining relative links resolve correctly
+    // Inject safety script + base tag immediately after <head> — must run FIRST
+    const safeScript = `<script>try{window.onerror=function(){return true};window.addEventListener('error',function(e){e.preventDefault();e.stopPropagation()},true);window.addEventListener('unhandledrejection',function(e){e.preventDefault()},true);Object.defineProperty(window,'top',{get:function(){return window}});Object.defineProperty(window,'parent',{get:function(){return window}})}catch(e){}</script>`;
     const baseTag = `<base href="${origin}/">`;
-    html = html.replace(/<head([^>]*)>/i, `<head$1>${baseTag}`);
+    html = html.replace(/<head([^>]*)>/i, `<head$1>${safeScript}${baseTag}`);
 
     // Serve without frame-busting headers
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
