@@ -1518,7 +1518,7 @@
         });
         // proxy is same-origin → treat successful load as real content
         iframe.addEventListener('load', function () {
-          if (this.src.startsWith('/api/proxy')) {
+          if (this.src.includes('/api/proxy')) {
             const fb = this.closest('.browser-canvas')?.querySelector('.preview-fallback');
             if (fb) fb.classList.add('loaded');
           }

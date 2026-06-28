@@ -39,6 +39,10 @@ export default async function handler(req, res) {
       .replace(/((?:href|src|action|srcset)=["'])\/(?!\/)/g, `$1${origin}/`)
       .replace(/url\(["']?\/(?!\/)/g, `url(${origin}/`);
 
+    // Strip CSP and X-Frame-Options meta tags embedded in HTML
+    html = html.replace(/<meta[^>]+http-equiv=["']?content-security-policy["']?[^>]*>/gi, '');
+    html = html.replace(/<meta[^>]+http-equiv=["']?x-frame-options["']?[^>]*>/gi, '');
+
     // Inject <base> so any remaining relative links resolve correctly
     const baseTag = `<base href="${origin}/">`;
     html = html.replace(/<head([^>]*)>/i, `<head$1>${baseTag}`);
