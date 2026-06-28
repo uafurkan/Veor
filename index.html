@@ -227,6 +227,7 @@
     }
 
     @keyframes blink { 50% { opacity: 0; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── Reveal on load / scroll ── */
     .reveal {
@@ -1367,11 +1368,17 @@
 
             <div class="showcase-screen" id="showcaseScreen">
 
-              <!-- Live proxy iframe — switches on button click -->
+              <!-- Loading overlay -->
+              <div id="showcaseLoader" style="position:absolute;inset:0;z-index:10;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;pointer-events:none;">
+                <div style="width:28px;height:28px;border:2px solid rgba(255,255,255,0.1);border-top-color:rgba(255,255,255,0.7);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.08em;">loading...</span>
+              </div>
+
+              <!-- Live proxy iframe -->
               <iframe id="showcaseIframe"
                 src="/api/proxy?url=https://paply.me"
                 style="width:100%;height:100%;border:none;display:block;"
-                loading="lazy" title="site preview" scrolling="yes"></iframe>
+                title="site preview"></iframe>
 
             </div><!-- /.showcase-screen -->
             </div><!-- /.showcase-screen-area -->
@@ -1551,9 +1558,25 @@
       setInterval(updateClock, 30000);
 
       // Switch live iframe src
+      const showcaseLoader = document.getElementById('showcaseLoader');
+      const showcaseIframe = document.getElementById('showcaseIframe');
+
+      function showLoader() {
+        if (showcaseLoader) showcaseLoader.style.display = 'flex';
+      }
+      function hideLoader() {
+        if (showcaseLoader) { showcaseLoader.style.opacity = '0'; setTimeout(() => { showcaseLoader.style.display = 'none'; showcaseLoader.style.opacity = '1'; }, 400); }
+      }
+
+      if (showcaseIframe) {
+        showcaseIframe.addEventListener('load', hideLoader);
+        // hide loader on initial load too
+        showLoader();
+      }
+
       function switchMockup(site) {
-        const iframe = document.getElementById('showcaseIframe');
-        if (iframe) iframe.src = `/api/proxy?url=https://${site}`;
+        showLoader();
+        if (showcaseIframe) showcaseIframe.src = `/api/proxy?url=https://${site}`;
 
         const info = siteInfo[site] || { desc: site, url: '#' };
         if (siteName) siteName.textContent = site;
