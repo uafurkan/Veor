@@ -665,7 +665,7 @@
     }
 
     /* ══════════════════════════════════════════
-       PHONE SHOWCASE SECTION
+       PHONE SHOWCASE SECTION — mobile only
     ══════════════════════════════════════════ */
     .phone-showcase {
       padding: 80px 40px 120px;
@@ -1024,6 +1024,9 @@
       margin-top: 6px;
     }
     .showcase-site-link:hover { color: #888; }
+
+    /* Hide on desktop, show only on mobile */
+    @media (min-width: 601px) { .phone-showcase { display: none !important; } }
 
     @media (max-width: 700px) {
       .showcase-inner {
