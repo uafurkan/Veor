@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veor — ecosystem of AI products</title>
+  <meta name="description" content="An ecosystem of AI products. careers · compensation · experiences" />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:title" content="Veor" />
+  <meta property="og:description" content="An ecosystem of AI-native products. careers · compensation · experiences." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000'/%3E%3Ctext x='50' y='50' font-family='Inter,Arial,sans-serif' font-size='52' font-weight='700' fill='%23fff' text-anchor='middle' dominant-baseline='central'%3EV%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #000;
+      --surface: #0a0a0a;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.14);
+      --text: #f0f0f0;
+      --muted: #555;
+      --dim: #333;
+      --accent: #fff;
+      --tag-bg: rgba(255,255,255,0.04);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    ::selection { background: rgba(255,255,255,0.15); color: #fff; }
+
+    /* keyboard focus only */
+    a:focus-visible, button:focus-visible {
+      outline: 1px solid rgba(255,255,255,0.5);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* ── Scroll progress (top hairline) ── */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 1px;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.2), #fff);
+      z-index: 100;
+      transition: width 0.05s linear;
+    }
+
+    /* ── System utility bar ── */
+    .sysbar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 40px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+    }
+
+    .sysbar-left { display: flex; align-items: center; gap: 10px; }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 0 rgba(74,222,128,0.6);
+      animation: pulse 2.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+      70%  { box-shadow: 0 0 0 5px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+    }
+
+    .sysbar-right { display: flex; gap: 18px; }
+    .sysbar-right span { color: var(--dim); }
+    .sysbar .val { color: #777; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* ── Grid lines ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    main { position: relative; z-index: 1; flex: 1; }
+
+    /* ── Header ── */
+    header {
+      position: relative;
+      z-index: 1;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--muted);
+      font-weight: 300;
+      margin-left: 8px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    nav a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 120px 40px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--dim);
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--muted);
+    }
+
+    /* scramble cursor caret */
+    .scramble.decoding::after {
+      content: '_';
+      color: var(--muted);
+      animation: blink 0.8s steps(1) infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── Reveal on load / scroll ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-desc strong {
+      color: #888;
+      font-weight: 400;
+    }
+
+    /* ── Products section ── */
+    .products {
+      padding: 40px 40px 120px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
+      perspective: 1200px;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      background: var(--surface);
+      padding: 36px 32px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: background 0.25s, transform 0.18s ease-out;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .card > *:not(.card-preview) { transform: translateZ(20px); }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .card:hover { background: #0f0f0f; }
+    .card:hover::before { opacity: 1; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+    }
+
+    .card-arrow {
+      width: 20px;
+      height: 20px;
+      color: var(--dim);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .card:hover .card-arrow {
+      color: var(--text);
+      transform: translate(3px, -3px);
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s;
+    }
+
+    .card:hover .card-icon { border-color: var(--border-hover); }
+
+    .card-body { flex: 1; }
+
+    .card-name {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .card-domain {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--dim);
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      transition: color 0.2s;
+    }
+
+    .card:hover .card-domain { color: #777; }
+
+    /* ── Card logo wordmarks ── */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-logo { display: flex; align-items: center; min-height: 26px; }
+
+    .logo-paply { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px; color: #f0f0f0; letter-spacing: -0.02em; }
+    .logo-paply .tld { color: #444; font-weight: 300; }
+
+    .logo-salary { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 14px; color: #f0f0f0; letter-spacing: 0.04em; }
+    .logo-salary .dollar { color: #555; }
+
+    .logo-dine { display: flex; flex-direction: column; line-height: 1.15; gap: 1px; }
+    .logo-dine small { font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.24em; color: #444; font-weight: 300; text-transform: uppercase; }
+    .logo-dine strong { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #f0f0f0; letter-spacing: -0.01em; }
+
+    /* ── Card preview mockup ── */
+    .card-preview {
+      width: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #040404;
+      flex-shrink: 0;
+    }
+
+    /* ·· Browser mockup (desktop default) ·· */
+    .mockup-browser { display: flex; flex-direction: column; }
+    .mockup-phone   { display: none; }
+
+    .browser-chrome {
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 10px; height: 28px;
+      background: #0d0d0d;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .browser-dots { display: flex; gap: 4px; }
+    .browser-dots b {
+      display: block; width: 7px; height: 7px;
+      border-radius: 50%; background: #1e1e1e;
+      font-style: normal; font-weight: normal;
+    }
+    .browser-url {
+      flex: 1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; color: #2e2e2e;
+      background: #070707;
+      border: 1px solid rgba(255,255,255,0.03);
+      padding: 3px 8px; border-radius: 3px;
+      text-align: center; overflow: hidden;
+      white-space: nowrap; text-overflow: ellipsis;
+    }
+    .browser-viewport {
+      height: 162px; overflow: hidden; position: relative; background: #040404;
+    }
+    .browser-scale-wrap {
+      position: absolute; top: 0; left: 0;
+      width: 900px; height: 600px;
+      transform-origin: top left;
+    }
+    .browser-scale-wrap iframe {
+      width: 100%; height: 100%; border: none;
+      pointer-events: none; display: block;
+    }
+
+    /* ·· Phone mockup (mobile) ·· */
+    .phone-shell {
+      margin: 14px auto;
+      width: 116px;
+      border: 1.5px solid #1c1c1c;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #040404;
+      box-shadow: 0 0 0 0.5px rgba(255,255,255,0.04),
+                  inset 0 0 0 0.5px rgba(255,255,255,0.02);
+    }
+    .phone-statusbar {
+      height: 20px; background: #090909;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .phone-statusbar::after {
+      content: ''; width: 38px; height: 4px;
+      border-radius: 2px; background: #1a1a1a;
+    }
+    .phone-viewport {
+      height: 212px; overflow: hidden; position: relative; background: #040404;
+    }
+    .phone-scale-wrap {
+      position: absolute; top: 0; left: 0;
+      width: 390px; height: 844px;
+      transform-origin: top left;
+    }
+    .phone-scale-wrap iframe {
+      width: 100%; height: 100%; border: none;
+      pointer-events: none; display: block;
+    }
+
+    /* ·· Fallback when iframe is blocked ·· */
+    .preview-fallback {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      background: #040404;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    .preview-fallback.loaded { opacity: 0; pointer-events: none; }
+    .fallback-mark {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: #2a2a2a;
+      background: rgba(255,255,255,0.015);
+    }
+    .fallback-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; color: #222; letter-spacing: 0.08em;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #2a2a2a;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+    .footer-meta .dot { color: var(--dim); margin: 0 6px; }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-right a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .footer-right a:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      .sysbar { padding: 8px max(20px, env(safe-area-inset-left)) 8px max(20px, env(safe-area-inset-left)); }
+      .sysbar-right { gap: 12px; }
+      header { padding: 22px 20px; }
+      nav { gap: 18px; }
+      .hero { padding: 72px 20px 56px; }
+      .products { padding: 20px 20px 80px; }
+      footer { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: clamp(40px, 13vw, 64px); letter-spacing: -0.02em; }
+      .hero-desc { font-size: 15px; }
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 30px 24px; gap: 18px; }
+      .card-name { font-size: 17px; }
+      footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .footer-right { flex-wrap: wrap; gap: 12px 18px; }
+      /* Switch to phone mockup on mobile */
+      .mockup-browser { display: none; }
+      .mockup-phone   { display: block; }
+    }
+
+    @media (max-width: 430px) {
+      .sysbar-coords { display: none; }
+      .sysbar { font-size: 9px; letter-spacing: 0.06em; }
+      header { padding: 20px 18px; }
+      .hero { padding: 60px 18px 48px; }
+      .products { padding: 16px 18px 72px; }
+      .card { padding: 26px 22px; }
+      .hero-tag { margin-bottom: 24px; }
+    }
+
+    /* ── Touch devices: kill sticky hover, add tap feedback, drop 3D ── */
+    @media (hover: none) {
+      .grid { perspective: none; }
+      .card { transform: none !important; transform-style: flat; will-change: auto; }
+      .card > * { transform: none; }
+
+      .card:hover { background: var(--surface); }
+      .card:hover::before { opacity: 0; }
+      .card:hover .card-arrow { color: var(--dim); transform: none; }
+      .card:hover .card-icon { border-color: var(--border); }
+      .card:hover .card-domain { color: var(--dim); }
+
+      .card:active { background: #0f0f0f; }
+      .card:active .card-arrow { color: var(--text); transform: translate(3px, -3px); }
+      .card:active .card-icon { border-color: var(--border-hover); }
+
+      nav a:hover, .footer-right a:hover { color: var(--muted); }
+      nav a:active, .footer-right a:active { color: var(--text); }
+    }
+
+    /* ── Respect reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress" id="progress"></div>
+
+  <div class="sysbar">
+    <div class="sysbar-left">
+      <span class="status-dot"></span>
+      <span>veor_systems // operational</span>
+    </div>
+    <div class="sysbar-right">
+      <span class="sysbar-coords">41.0082°N&nbsp;&nbsp;28.9784°E</span>
+      <span>UTC&nbsp;<span class="val" id="clock">--:--:--</span></span>
+    </div>
+  </div>
+
+  <header>
+    <a class="logo" href="/">Veor<span>// ecosystem</span></a>
+    <nav>
+      <a href="https://www.instagram.com/veorcom" target="_blank" rel="noopener">instagram</a>
+      <a href="mailto:furkanhlkk@gmail.com">contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="hero-tag reveal" style="transition-delay:.05s">v1.0.0 — 2026</p>
+      <h1 class="reveal" style="transition-delay:.12s">Build<br /><em class="scramble" data-text="differently.">differently.</em></h1>
+      <p class="hero-desc reveal" style="transition-delay:.22s">
+        Veor is an ecosystem of <strong>AI-native products</strong> focused on careers,
+        compensation, and everyday experiences. Engineered to be minimal. Built to last.
+      </p>
+    </section>
+
+    <section class="products">
+      <p class="section-label reveal">// products — 03 live</p>
+      <div class="grid">
+
+        <!-- paply.me -->
+        <a class="card reveal" style="transition-delay:.05s" href="https://paply.me" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-logo">
+              <span class="logo-paply">paply<span class="tld">.me</span></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="card-num">01</span>
+              <svg class="card-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 16L16 4M16 4H8M16 4V12" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card-preview">
+            <div class="mockup-browser">
+              <div class="browser-chrome">
+                <span class="browser-dots"><b></b><b></b><b></b></span>
+                <span class="browser-url">paply.me</span>
+              </div>
+              <div class="browser-viewport" data-src="https://paply.me">
+                <div class="browser-scale-wrap">
+                  <iframe src="https://paply.me" loading="lazy" tabindex="-1" title="paply.me preview" aria-hidden="true"></iframe>
+                </div>
+                <div class="preview-fallback">
+                  <div class="fallback-mark">Pp</div>
+                  <span class="fallback-url">paply.me</span>
+                </div>
+              </div>
+            </div>
+            <div class="mockup-phone">
+              <div class="phone-shell">
+                <div class="phone-statusbar"></div>
+                <div class="phone-viewport">
+                  <div class="phone-scale-wrap">
+                    <iframe src="https://paply.me" loading="lazy" tabindex="-1" title="paply.me mobile" aria-hidden="true"></iframe>
+                  </div>
+                  <div class="preview-fallback">
+                    <div class="fallback-mark">Pp</div>
+                    <span class="fallback-url">paply.me</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <p class="card-name">paply.me</p>
+            <p class="card-desc">AI-powered job application toolkit. Apply smarter, track progress, and land roles faster with intelligent automation.</p>
+          </div>
+          <div class="card-tags">
+            <span class="tag">careers</span>
+            <span class="tag">AI</span>
+            <span class="tag">applications</span>
+          </div>
+          <p class="card-domain">paply.me ↗</p>
+        </a>
+
+        <!-- s4l4ry.com -->
+        <a class="card reveal" style="transition-delay:.13s" href="https://s4l4ry.com" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-logo">
+              <span class="logo-salary">S<span class="dollar">$</span>L<span class="dollar">$</span>RY</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="card-num">02</span>
+              <svg class="card-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 16L16 4M16 4H8M16 4V12" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card-preview">
+            <div class="mockup-browser">
+              <div class="browser-chrome">
+                <span class="browser-dots"><b></b><b></b><b></b></span>
+                <span class="browser-url">s4l4ry.com</span>
+              </div>
+              <div class="browser-viewport">
+                <div class="browser-scale-wrap">
+                  <iframe src="https://s4l4ry.com" loading="lazy" tabindex="-1" title="s4l4ry.com preview" aria-hidden="true"></iframe>
+                </div>
+                <div class="preview-fallback">
+                  <div class="fallback-mark">S$</div>
+                  <span class="fallback-url">s4l4ry.com</span>
+                </div>
+              </div>
+            </div>
+            <div class="mockup-phone">
+              <div class="phone-shell">
+                <div class="phone-statusbar"></div>
+                <div class="phone-viewport">
+                  <div class="phone-scale-wrap">
+                    <iframe src="https://s4l4ry.com" loading="lazy" tabindex="-1" title="s4l4ry.com mobile" aria-hidden="true"></iframe>
+                  </div>
+                  <div class="preview-fallback">
+                    <div class="fallback-mark">S$</div>
+                    <span class="fallback-url">s4l4ry.com</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <p class="card-name">s4l4ry.com</p>
+            <p class="card-desc">Real compensation data for real decisions. Transparent salary benchmarks powered by community and AI analysis.</p>
+          </div>
+          <div class="card-tags">
+            <span class="tag">compensation</span>
+            <span class="tag">data</span>
+            <span class="tag">benchmarks</span>
+          </div>
+          <p class="card-domain">s4l4ry.com ↗</p>
+        </a>
+
+        <!-- dinememento.com -->
+        <a class="card reveal" style="transition-delay:.21s" href="https://dinememento.com" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-logo">
+              <div class="logo-dine">
+                <small>dine</small>
+                <strong>memento</strong>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="card-num">03</span>
+              <svg class="card-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 16L16 4M16 4H8M16 4V12" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card-preview">
+            <div class="mockup-browser">
+              <div class="browser-chrome">
+                <span class="browser-dots"><b></b><b></b><b></b></span>
+                <span class="browser-url">dinememento.com</span>
+              </div>
+              <div class="browser-viewport">
+                <div class="browser-scale-wrap">
+                  <iframe src="https://dinememento.com" loading="lazy" tabindex="-1" title="dinememento preview" aria-hidden="true"></iframe>
+                </div>
+                <div class="preview-fallback">
+                  <div class="fallback-mark">Dm</div>
+                  <span class="fallback-url">dinememento.com</span>
+                </div>
+              </div>
+            </div>
+            <div class="mockup-phone">
+              <div class="phone-shell">
+                <div class="phone-statusbar"></div>
+                <div class="phone-viewport">
+                  <div class="phone-scale-wrap">
+                    <iframe src="https://dinememento.com" loading="lazy" tabindex="-1" title="dinememento mobile" aria-hidden="true"></iframe>
+                  </div>
+                  <div class="preview-fallback">
+                    <div class="fallback-mark">Dm</div>
+                    <span class="fallback-url">dinememento.com</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <p class="card-name">dinememento</p>
+            <p class="card-desc">Capture and preserve dining memories. Discover restaurants, save favorites, and relive the meals that matter.</p>
+          </div>
+          <div class="card-tags">
+            <span class="tag">experiences</span>
+            <span class="tag">dining</span>
+            <span class="tag">memory</span>
+          </div>
+          <p class="card-domain">dinememento.com ↗</p>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <p class="footer-left">© 2026 Veor. All rights reserved.</p>
+      <p class="footer-meta">build <span id="hash">a3f9c2e</span><span class="dot">·</span>crafted by Veor<span class="dot">·</span><span id="uptime">istanbul</span></p>
+    </div>
+    <div class="footer-right">
+      <a href="https://paply.me" target="_blank" rel="noopener">paply.me</a>
+      <a href="https://s4l4ry.com" target="_blank" rel="noopener">s4l4ry.com</a>
+      <a href="https://dinememento.com" target="_blank" rel="noopener">dinememento.com</a>
+      <a href="https://www.instagram.com/veorcom" target="_blank" rel="noopener">@veorcom</a>
+    </div>
+  </footer>
+
+  <script>
+    'use strict';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    /* ── Live UTC clock ── */
+    const clock = document.getElementById('clock');
+    function tick() {
+      const d = new Date();
+      const p = n => String(n).padStart(2, '0');
+      clock.textContent = `${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:${p(d.getUTCSeconds())}`;
+    }
+    tick(); setInterval(tick, 1000);
+
+    /* ── Scroll progress hairline ── */
+    const bar = document.getElementById('progress');
+    function onScroll() {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      bar.style.width = (pct || 0) + '%';
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ── Reveal on scroll ── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Failsafe: reveal anything already in view (covers backgrounded tabs where
+    // IntersectionObserver/rAF are paused, slow JS, or observer hiccups — content
+    // must never stay invisible).
+    function revealVisible() {
+      document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('in');
+      });
+    }
+    window.addEventListener('load', revealVisible);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) revealVisible(); });
+
+    /* ── Text scramble / decode on the hero word ── */
+    (function scramble() {
+      const el = document.querySelector('.scramble');
+      if (!el || reduce) return;
+      const target = el.dataset.text;
+      const chars = '!<>-_\\/[]{}—=+*^?#________';
+      let frame = 0;
+      el.classList.add('decoding');
+      const queue = target.split('').map((ch, i) => ({
+        ch, start: Math.floor(i * 3), end: Math.floor(i * 3) + 12 + Math.random() * 12
+      }));
+      function run() {
+        let out = '', done = 0;
+        for (const q of queue) {
+          if (frame >= q.end) { out += q.ch; done++; }
+          else if (frame >= q.start) {
+            if (!q.r || Math.random() < 0.28) q.r = chars[Math.floor(Math.random() * chars.length)];
+            out += `<span style="color:var(--dim)">${q.r}</span>`;
+          } else { out += ''; }
+        }
+        el.innerHTML = out;
+        if (done === queue.length) { el.textContent = target; el.classList.remove('decoding'); return; }
+        frame++;
+        requestAnimationFrame(run);
+      }
+      // start slightly after the reveal kicks in
+      setTimeout(run, 350);
+    })();
+
+    /* ── Preview iframe: dynamic scale via ResizeObserver ── */
+    // ResizeObserver fires on element-size changes including display:none→visible,
+    // catching both load and media-query breakpoint transitions.
+    (function initPreviewScale() {
+      function scaleVp(vp) {
+        const isBrowser = vp.classList.contains('browser-viewport');
+        const wrap = vp.querySelector('.browser-scale-wrap, .phone-scale-wrap');
+        if (!wrap) return;
+        const w = vp.clientWidth;
+        if (w <= 0) return;
+        wrap.style.transform = `scale(${(w / (isBrowser ? 900 : 390)).toFixed(4)})`;
+      }
+      const ro = new ResizeObserver(entries => entries.forEach(e => scaleVp(e.target)));
+      document.querySelectorAll('.browser-viewport, .phone-viewport').forEach(vp => {
+        ro.observe(vp);
+        scaleVp(vp); // initial call
+      });
+      // fallback for environments without ResizeObserver
+      window.addEventListener('resize', () => {
+        document.querySelectorAll('.browser-viewport, .phone-viewport').forEach(scaleVp);
+      }, { passive: true });
+    })();
+
+    /* ── Iframe load detection: hide fallback if real content loaded ── */
+    document.querySelectorAll('.card-preview iframe').forEach(iframe => {
+      iframe.addEventListener('load', function () {
+        try {
+          // Cross-origin success → accessing href throws SecurityError
+          void this.contentWindow.location.href;
+          // Reached here: same-origin or blank (about:blank = blocked)
+          const href = this.contentWindow.location.href;
+          if (href && href !== 'about:blank') {
+            const fb = this.closest('.browser-viewport, .phone-viewport')?.querySelector('.preview-fallback');
+            if (fb) fb.classList.add('loaded');
+          }
+        } catch (_) {
+          // SecurityError = cross-origin content loaded successfully
+          const fb = this.closest('.browser-viewport, .phone-viewport')?.querySelector('.preview-fallback');
+          if (fb) fb.classList.add('loaded');
+        }
+      });
+    });
+
+    /* ── Card: cursor glow + subtle 3D tilt ── */
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        if (!reduce && canHover) {
+          const rx = (0.5 - py) * 6;   // tilt up/down
+          const ry = (px - 0.5) * 6;   // tilt left/right
+          card.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+        }
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    /* ── Console signature ── */
+    console.log(
+      '%cVeor%c  // ecosystem of AI products\n%cpaply.me · s4l4ry.com · dinememento.com\nbuilt by Veor → instagram.com/veorcom',
+      'font-size:22px;font-weight:700;color:#fff;background:#000;padding:2px 8px;border-radius:4px',
+      'color:#555;font-size:12px',
+      'color:#444;font-size:11px'
+    );
+  </script>
+
+</body>
+</html>
