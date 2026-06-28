@@ -477,6 +477,7 @@
     .preview-paply {
       padding: 18px 16px;
       display: flex; flex-direction: column; gap: 10px;
+      height: 100%; box-sizing: border-box;
     }
     .preview-paply .p-nav {
       display: flex; align-items: center; justify-content: space-between;
@@ -515,9 +516,40 @@
       font-style: normal; margin-left: auto; font-size: 8px; color: #4a9eff;
       background: rgba(74,158,255,0.15); padding: 1px 6px; border-radius: 3px;
     }
+    .preview-paply .p-stats {
+      display: flex; gap: 6px; margin-top: 2px;
+    }
+    .preview-paply .p-stat {
+      flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 5px; padding: 5px 6px;
+    }
+    .preview-paply .p-stat-n {
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: #fff;
+    }
+    .preview-paply .p-stat-l {
+      font-size: 7px; color: #444; font-family: 'Inter', sans-serif; margin-top: 1px;
+    }
+    .preview-paply .p-recents {
+      display: flex; flex-direction: column; gap: 4px; margin-top: 2px;
+    }
+    .preview-paply .p-recent-row {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.03); border-radius: 4px; padding: 4px 6px;
+    }
+    .preview-paply .p-recent-co {
+      font-size: 8px; font-weight: 600; color: #ccc; font-family: 'Inter', sans-serif; width: 32px;
+    }
+    .preview-paply .p-recent-role {
+      font-size: 7px; color: #444; font-family: 'Inter', sans-serif; flex: 1;
+    }
+    .preview-paply .p-recent-status {
+      font-size: 7px; font-family: 'Inter', sans-serif; border-radius: 3px; padding: 1px 5px;
+    }
+    .preview-paply .p-st-int { color: #4a9eff; background: rgba(74,158,255,0.12); }
+    .preview-paply .p-st-ap  { color: #666; background: rgba(255,255,255,0.06); }
 
     /* s4l4ry.com preview */
-    .preview-salary { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .preview-salary { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; height: 100%; box-sizing: border-box; }
     .preview-salary .s-header {
       display: flex; align-items: center; justify-content: space-between;
     }
@@ -550,6 +582,21 @@
     .preview-salary .s-labels span {
       font-size: 7px; color: #333; font-family: 'JetBrains Mono', monospace;
     }
+    .preview-salary .s-rows {
+      display: flex; flex-direction: column; gap: 4px; margin-top: 4px;
+    }
+    .preview-salary .s-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.03); border-radius: 4px; padding: 5px 8px;
+      font-size: 8px; color: #444; font-family: 'Inter', sans-serif;
+    }
+    .preview-salary .s-row.s-row-hi {
+      background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.15); color: #ccc;
+    }
+    .preview-salary .s-sal {
+      font-weight: 600; color: #60a5fa; font-family: 'JetBrains Mono', monospace;
+    }
+    .preview-salary .s-row.s-row-hi .s-sal { color: #93c5fd; }
 
     /* dinememento preview */
     .preview-dine { padding: 0; overflow: hidden; height: 100%; position: relative; }
@@ -1169,6 +1216,16 @@
                   <span class="p-tag">job applications, automated</span>
                   <div class="p-headline">Paste a page.<br/><span>Application</span> done.</div>
                   <div class="p-input"><span>paste a job listing url...</span><em>Apply →</em></div>
+                  <div class="p-stats">
+                    <div class="p-stat"><div class="p-stat-n">2.4k</div><div class="p-stat-l">applied</div></div>
+                    <div class="p-stat"><div class="p-stat-n">94%</div><div class="p-stat-l">time saved</div></div>
+                    <div class="p-stat"><div class="p-stat-n">12k</div><div class="p-stat-l">users</div></div>
+                  </div>
+                  <div class="p-recents">
+                    <div class="p-recent-row"><span class="p-recent-co">Figma</span><span class="p-recent-role">UX Designer</span><span class="p-recent-status p-st-int">Interview</span></div>
+                    <div class="p-recent-row"><span class="p-recent-co">Linear</span><span class="p-recent-role">Product Eng</span><span class="p-recent-status p-st-ap">Applied</span></div>
+                    <div class="p-recent-row"><span class="p-recent-co">Vercel</span><span class="p-recent-role">Frontend Dev</span><span class="p-recent-status p-st-ap">Applied</span></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1220,6 +1277,11 @@
                     <div class="s-bar mid" style="height:50%"></div><div class="s-bar mid" style="height:35%"></div>
                   </div>
                   <div class="s-labels"><span>junior</span><span>mid</span><span style="color:#60a5fa">senior</span><span>lead</span></div>
+                  <div class="s-rows">
+                    <div class="s-row s-row-hi"><span>Senior Engineer</span><span class="s-sal">$130k</span></div>
+                    <div class="s-row"><span>Mid-level</span><span class="s-sal">$95k</span></div>
+                    <div class="s-row"><span>Junior</span><span class="s-sal">$65k</span></div>
+                  </div>
                 </div>
               </div>
             </div>
