@@ -663,6 +663,392 @@
       }
       .reveal { opacity: 1; transform: none; }
     }
+
+    /* ══════════════════════════════════════════
+       PHONE SHOWCASE SECTION
+    ══════════════════════════════════════════ */
+    .phone-showcase {
+      padding: 80px 40px 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone-showcase::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse at center bottom, rgba(255,255,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .showcase-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+    }
+
+    .showcase-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      position: relative;
+    }
+
+    /* Site selector buttons */
+    .site-selectors {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      order: -1;
+    }
+
+    .site-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      color: var(--muted);
+      text-align: left;
+      min-width: 160px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-btn::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: transparent;
+      transition: background 0.2s;
+    }
+
+    .site-btn.active {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.14);
+      color: var(--text);
+    }
+    .site-btn.active::before { background: #fff; }
+
+    .site-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--border-hover);
+      transform: translateX(2px);
+    }
+
+    .site-btn-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: #666;
+      flex-shrink: 0;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .site-btn.active .site-btn-icon {
+      color: #aaa;
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .site-btn-info { flex: 1; }
+    .site-btn-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+      transition: color 0.2s;
+    }
+    .site-btn-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+    .site-btn.active .site-btn-name { color: #e0e0e0; }
+
+    .site-btn-arrow {
+      width: 14px; height: 14px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+      color: #555;
+    }
+    .site-btn.active .site-btn-arrow { opacity: 1; }
+
+    /* ── 3D Showcase Phone ── */
+    .showcase-phone {
+      perspective: 1000px;
+      flex-shrink: 0;
+    }
+
+    .showcase-phone-body {
+      width: 260px;
+      border-radius: 50px;
+      background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 40%, #111 100%);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.8),
+        0 40px 80px rgba(0,0,0,0.9),
+        0 20px 40px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 -1px 0 rgba(255,255,255,0.03);
+      transform: rotateY(-12deg) rotateX(4deg);
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(.2,.7,.2,1);
+      position: relative;
+    }
+
+    .showcase-phone-body:hover {
+      transform: rotateY(-4deg) rotateX(2deg);
+    }
+
+    /* Side buttons (physical) */
+    .showcase-phone-body::before {
+      content: '';
+      position: absolute;
+      right: -3px; top: 80px;
+      width: 3px; height: 60px;
+      background: linear-gradient(to bottom, #1a1a1a, #111);
+      border-radius: 0 2px 2px 0;
+      box-shadow: 0 20px 0 #111, 0 40px 0 #111;
+    }
+
+    /* Volume buttons */
+    .showcase-phone-body::after {
+      content: '';
+      position: absolute;
+      left: -3px; top: 100px;
+      width: 3px; height: 40px;
+      background: linear-gradient(to bottom, #1a1a1a, #111);
+      border-radius: 2px 0 0 2px;
+      box-shadow: 0 50px 0 #111;
+    }
+
+    /* Dynamic Island */
+    .showcase-island {
+      position: absolute;
+      top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 110px; height: 30px;
+      background: #000;
+      border-radius: 0 0 20px 20px;
+      z-index: 5;
+    }
+
+    /* Status bar */
+    .showcase-statusbar {
+      height: 48px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 24px 8px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .statusbar-time {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: -0.01em;
+    }
+
+    .statusbar-icons {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .statusbar-icons svg {
+      width: 14px;
+      height: 10px;
+      fill: rgba(255,255,255,0.7);
+    }
+
+    /* Phone screen */
+    .showcase-screen {
+      margin: 0 8px;
+      border-radius: 32px 32px 40px 40px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+      height: 480px;
+    }
+
+    .showcase-iframe-wrap {
+      position: absolute;
+      top: 0; left: 0;
+      width: 390px; height: 844px;
+      transform-origin: top left;
+    }
+
+    .showcase-iframe-wrap iframe {
+      width: 100%; height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Fallback for blocked sites */
+    .showcase-fallback {
+      position: absolute;
+      inset: 0; z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: linear-gradient(160deg, #0a0a0a 0%, #050505 100%);
+    }
+    .showcase-fallback.hidden { display: none; }
+
+    .showcase-fallback-logo {
+      width: 52px; height: 52px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 500;
+      color: #555;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .showcase-fallback-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 0.06em;
+    }
+
+    .showcase-visit-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: #e0e0e0;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .showcase-visit-btn:hover { background: rgba(255,255,255,0.14); }
+
+    /* Loading skeleton */
+    .showcase-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #050505;
+      z-index: 8;
+      transition: opacity 0.4s;
+    }
+    .showcase-loading.done { opacity: 0; pointer-events: none; }
+
+    .showcase-spinner {
+      width: 20px; height: 20px;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-top-color: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Phone bottom chin */
+    .showcase-chin {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .showcase-home-indicator {
+      width: 120px; height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px;
+    }
+
+    /* Site info strip under phone */
+    .showcase-site-info {
+      text-align: center;
+    }
+    .showcase-site-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .showcase-site-desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .showcase-site-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+      display: inline-block;
+      margin-top: 6px;
+    }
+    .showcase-site-link:hover { color: #888; }
+
+    @media (max-width: 700px) {
+      .showcase-inner {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .site-selectors {
+        flex-direction: row;
+        order: 0;
+        gap: 8px;
+      }
+      .site-btn {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        min-width: 90px;
+        padding: 10px 14px;
+        gap: 6px;
+      }
+      .site-btn-info { display: none; }
+      .site-btn-arrow { display: none; }
+      .showcase-phone-body {
+        width: 220px;
+        transform: rotateY(0deg) rotateX(2deg);
+      }
+      .showcase-phone-body:hover {
+        transform: rotateY(0deg) rotateX(1deg);
+      }
+      .showcase-screen { height: 400px; }
+      .phone-showcase { padding: 60px 20px 80px; }
+    }
   </style>
 </head>
 <body>
@@ -887,6 +1273,105 @@
 
       </div>
     </section>
+
+    <!-- ══ Interactive Phone Showcase ══ -->
+    <section class="phone-showcase" id="showcase">
+      <p class="section-label reveal showcase-label">// live preview — try it on mobile</p>
+
+      <div class="showcase-inner reveal" style="transition-delay:.1s">
+
+        <!-- Site selector buttons -->
+        <div class="site-selectors">
+          <button class="site-btn active" data-site="paply.me" data-url="https://paply.me" data-mark="Pp" data-tag="careers · AI">
+            <div class="site-btn-icon">Pp</div>
+            <div class="site-btn-info">
+              <div class="site-btn-name">paply.me</div>
+              <div class="site-btn-tag">careers · AI</div>
+            </div>
+            <svg class="site-btn-arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="site-btn" data-site="s4l4ry.com" data-url="https://s4l4ry.com" data-mark="S$" data-tag="compensation">
+            <div class="site-btn-icon">S$</div>
+            <div class="site-btn-info">
+              <div class="site-btn-name">s4l4ry.com</div>
+              <div class="site-btn-tag">compensation</div>
+            </div>
+            <svg class="site-btn-arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="site-btn" data-site="dinememento.com" data-url="https://dinememento.com" data-mark="Dm" data-tag="dining · memory">
+            <div class="site-btn-icon">Dm</div>
+            <div class="site-btn-info">
+              <div class="site-btn-name">dinememento</div>
+              <div class="site-btn-tag">dining · memory</div>
+            </div>
+            <svg class="site-btn-arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- 3D Phone -->
+        <div class="showcase-phone">
+          <div class="showcase-phone-body" id="showcasePhone">
+            <div class="showcase-island"></div>
+
+            <div class="showcase-statusbar">
+              <span class="statusbar-time" id="showcaseTime">9:41</span>
+              <div class="statusbar-icons">
+                <!-- Signal -->
+                <svg viewBox="0 0 17 12"><rect x="0" y="6" width="3" height="6" rx="1"/><rect x="4.5" y="4" width="3" height="8" rx="1"/><rect x="9" y="1.5" width="3" height="10.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
+                <!-- Wifi -->
+                <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4.5C3.8 1.8 7.2.5 8 .5s4.2 1.3 7 4" stroke-linecap="round"/><path d="M3.2 7C4.8 5.4 6.5 4.5 8 4.5s3.2.9 4.8 2.5" stroke-linecap="round"/><path d="M5.5 9.5C6.2 8.8 7.1 8.5 8 8.5s1.8.3 2.5 1" stroke-linecap="round"/><circle cx="8" cy="12" r="1" fill="currentColor"/></svg>
+                <!-- Battery -->
+                <svg viewBox="0 0 25 12"><rect x="0" y="1" width="21" height="10" rx="3" stroke="currentColor" stroke-width="1.2" fill="none"/><rect x="22" y="4" width="2.5" height="4" rx="1" fill="currentColor" opacity=".4"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <div class="showcase-screen" id="showcaseScreen">
+              <!-- iframe content -->
+              <div class="showcase-iframe-wrap" id="showcaseIframeWrap">
+                <iframe
+                  id="showcaseIframe"
+                  src="https://paply.me"
+                  title="Site preview"
+                  allow="fullscreen"
+                  loading="lazy"
+                ></iframe>
+              </div>
+
+              <!-- Loading spinner -->
+              <div class="showcase-loading" id="showcaseLoading">
+                <div class="showcase-spinner"></div>
+              </div>
+
+              <!-- Fallback for blocked sites -->
+              <div class="showcase-fallback hidden" id="showcaseFallback">
+                <div class="showcase-fallback-logo" id="showcaseFallbackMark">Pp</div>
+                <span class="showcase-fallback-url" id="showcaseFallbackUrl">paply.me</span>
+                <a href="https://paply.me" target="_blank" rel="noopener" class="showcase-visit-btn" id="showcaseVisitBtn">Open in browser ↗</a>
+              </div>
+            </div>
+
+            <div class="showcase-chin">
+              <div class="showcase-home-indicator"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Site info below phone -->
+      <div class="showcase-site-info reveal" style="transition-delay:.2s">
+        <div class="showcase-site-name" id="showcaseSiteName">paply.me</div>
+        <div class="showcase-site-desc" id="showcaseSiteDesc">AI-powered job application toolkit</div>
+        <a href="https://paply.me" target="_blank" rel="noopener" class="showcase-site-link" id="showcaseSiteLink">visit paply.me ↗</a>
+      </div>
+    </section>
+
   </main>
 
   <footer>
@@ -1034,6 +1519,127 @@
       });
       card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
+
+    /* ── Showcase phone iframe scale ── */
+    (function initShowcase() {
+      const phone = document.getElementById('showcasePhone');
+      const screen = document.getElementById('showcaseScreen');
+      const iframeWrap = document.getElementById('showcaseIframeWrap');
+      const iframe = document.getElementById('showcaseIframe');
+      const loading = document.getElementById('showcaseLoading');
+      const fallback = document.getElementById('showcaseFallback');
+      const fallbackMark = document.getElementById('showcaseFallbackMark');
+      const fallbackUrl = document.getElementById('showcaseFallbackUrl');
+      const visitBtn = document.getElementById('showcaseVisitBtn');
+      const siteName = document.getElementById('showcaseSiteName');
+      const siteDesc = document.getElementById('showcaseSiteDesc');
+      const siteLink = document.getElementById('showcaseSiteLink');
+      const showcaseTime = document.getElementById('showcaseTime');
+
+      const siteInfo = {
+        'paply.me':        { desc: 'AI-powered job application toolkit', mark: 'Pp' },
+        's4l4ry.com':      { desc: 'Real compensation data, transparent benchmarks', mark: 'S$' },
+        'dinememento.com': { desc: 'Capture and relive your dining memories', mark: 'Dm' }
+      };
+
+      // Live clock in status bar
+      function updateShowcaseClock() {
+        const d = new Date();
+        const h = d.getHours(), m = d.getMinutes();
+        showcaseTime.textContent = `${h}:${String(m).padStart(2,'0')}`;
+      }
+      updateShowcaseClock();
+      setInterval(updateShowcaseClock, 30000);
+
+      // Scale iframe to fill screen
+      function scaleShowcase() {
+        const w = screen.clientWidth;
+        if (w > 0) iframeWrap.style.transform = `scale(${(w / 390).toFixed(4)})`;
+      }
+      const ro = new ResizeObserver(scaleShowcase);
+      ro.observe(screen);
+      scaleShowcase();
+
+      // Load a site into the phone
+      let loadTimer = null;
+      function loadSite(url, domain, mark) {
+        // Show loading, hide fallback
+        loading.classList.remove('done');
+        fallback.classList.add('hidden');
+
+        // Update info strip
+        const info = siteInfo[domain] || { desc: domain, mark: domain.slice(0,2) };
+        siteName.textContent = domain;
+        siteDesc.textContent = info.desc;
+        siteLink.textContent = `visit ${domain} ↗`;
+        siteLink.href = url;
+
+        // Update fallback content
+        fallbackMark.textContent = mark;
+        fallbackUrl.textContent = domain;
+        visitBtn.textContent = `Open in browser ↗`;
+        visitBtn.href = url;
+
+        // Load iframe
+        iframe.src = '';
+        clearTimeout(loadTimer);
+        loadTimer = setTimeout(() => {
+          iframe.src = url;
+        }, 50);
+      }
+
+      // Detect iframe load success or failure
+      iframe.addEventListener('load', function () {
+        loading.classList.add('done');
+        try {
+          void this.contentWindow.location.href;
+          const href = this.contentWindow.location.href;
+          // about:blank or same-origin blank = loaded but empty
+          if (!href || href === 'about:blank') {
+            fallback.classList.remove('hidden');
+          }
+        } catch (_) {
+          // SecurityError = cross-origin loaded successfully — good!
+          fallback.classList.add('hidden');
+        }
+      });
+
+      // Fallback timer — if iframe takes >6s and we can't detect, show fallback
+      iframe.addEventListener('error', function () {
+        loading.classList.add('done');
+        fallback.classList.remove('hidden');
+      });
+
+      // Site selector buttons
+      document.querySelectorAll('.site-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.site-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          loadSite(this.dataset.url, this.dataset.site, this.dataset.mark);
+        });
+      });
+
+      // 3D mouse tilt on phone
+      const showcase = document.getElementById('showcase');
+      if (canHover && !reduce) {
+        showcase.addEventListener('mousemove', e => {
+          const r = phone.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const dx = (e.clientX - cx) / (r.width / 2);
+          const dy = (e.clientY - cy) / (r.height / 2);
+          const rx = -dy * 8 + 4;
+          const ry = -dx * 12 - 12;
+          phone.style.transform = `rotateY(${ry}deg) rotateX(${rx}deg)`;
+        });
+        showcase.addEventListener('mouseleave', () => {
+          phone.style.transform = '';
+        });
+      }
+
+      // Initial load
+      scaleShowcase();
+    })();
 
     /* ── Console signature ── */
     console.log(
