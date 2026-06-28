@@ -804,7 +804,7 @@
     .showcase-phone-body {
       width: 260px;
       border-radius: 50px;
-      background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 40%, #111 100%);
+      background: linear-gradient(145deg, #1c1c1e 0%, #0a0a0a 40%, #111 100%);
       border: 1.5px solid rgba(255,255,255,0.1);
       box-shadow:
         0 0 0 1px rgba(0,0,0,0.8),
@@ -812,14 +812,7 @@
         0 20px 40px rgba(0,0,0,0.5),
         inset 0 1px 0 rgba(255,255,255,0.08),
         inset 0 -1px 0 rgba(255,255,255,0.03);
-      transform: rotateY(-12deg) rotateX(4deg);
-      transform-style: preserve-3d;
-      transition: transform 0.5s cubic-bezier(.2,.7,.2,1);
       position: relative;
-    }
-
-    .showcase-phone-body:hover {
-      transform: rotateY(-4deg) rotateX(2deg);
     }
 
     /* Side buttons (physical) */
@@ -844,24 +837,13 @@
       box-shadow: 0 50px 0 #111;
     }
 
-    /* Dynamic Island */
-    .showcase-island {
-      position: absolute;
-      top: 12px; left: 50%;
-      transform: translateX(-50%);
-      width: 110px; height: 30px;
-      background: #000;
-      border-radius: 0 0 20px 20px;
-      z-index: 5;
-    }
-
-    /* Status bar */
+    /* Status bar — sits above screen, inside bezel */
     .showcase-statusbar {
-      height: 48px;
+      height: 52px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
-      padding: 0 24px 8px;
+      padding: 10px 24px 0;
       position: relative;
       z-index: 4;
     }
@@ -894,6 +876,36 @@
       background: #000;
       position: relative;
       height: 480px;
+    }
+
+    /* Dynamic Island — floating pill inside screen */
+    .showcase-dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 20;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 2px 8px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      gap: 5px;
+    }
+
+    /* Camera dot inside Dynamic Island */
+    .showcase-dynamic-island::after {
+      content: '';
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1a3a5c, #0a1a2e);
+      box-shadow: 0 0 0 1.5px rgba(255,255,255,0.04), inset 0 0 3px rgba(0,100,255,0.15);
     }
 
     .showcase-iframe-wrap {
@@ -1317,9 +1329,7 @@
         <!-- 3D Phone -->
         <div class="showcase-phone">
           <div class="showcase-phone-body" id="showcasePhone">
-            <div class="showcase-island"></div>
-
-            <div class="showcase-statusbar">
+              <div class="showcase-statusbar">
               <span class="statusbar-time" id="showcaseTime">9:41</span>
               <div class="statusbar-icons">
                 <!-- Signal -->
@@ -1332,6 +1342,9 @@
             </div>
 
             <div class="showcase-screen" id="showcaseScreen">
+              <!-- Dynamic Island floating pill -->
+              <div class="showcase-dynamic-island"></div>
+
               <!-- iframe content -->
               <div class="showcase-iframe-wrap" id="showcaseIframeWrap">
                 <iframe
@@ -1619,23 +1632,6 @@
         });
       });
 
-      // 3D mouse tilt on phone
-      const showcase = document.getElementById('showcase');
-      if (canHover && !reduce) {
-        showcase.addEventListener('mousemove', e => {
-          const r = phone.getBoundingClientRect();
-          const cx = r.left + r.width / 2;
-          const cy = r.top + r.height / 2;
-          const dx = (e.clientX - cx) / (r.width / 2);
-          const dy = (e.clientY - cy) / (r.height / 2);
-          const rx = -dy * 8 + 4;
-          const ry = -dx * 12 - 12;
-          phone.style.transform = `rotateY(${ry}deg) rotateX(${rx}deg)`;
-        });
-        showcase.addEventListener('mouseleave', () => {
-          phone.style.transform = '';
-        });
-      }
 
       // Initial load
       scaleShowcase();
