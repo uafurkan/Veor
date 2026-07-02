@@ -61,7 +61,7 @@ export default async function handler(req, res) {
     html = html.replace(/(?:top|window\.top)\.location(?:\.href)?\s*=\s*(?:self|window\.self|window)\.location(?:\.href)?/gi, '');
 
     // Inject safety script + base tag immediately after <head> — must run FIRST
-    const safeScript = `<script>try{window.onerror=function(){return true};window.addEventListener('error',function(e){e.preventDefault();e.stopPropagation()},true);window.addEventListener('unhandledrejection',function(e){e.preventDefault()},true);Object.defineProperty(window,'top',{get:function(){return window}});Object.defineProperty(window,'parent',{get:function(){return window}})}catch(e){}</script>`;
+    const safeScript = `<script>try{window.onerror=function(){return true};window.addEventListener('error',function(e){e.preventDefault();e.stopPropagation()},true);window.addEventListener('unhandledrejection',function(e){e.preventDefault()},true);Object.defineProperty(window,'top',{get:function(){return window}});Object.defineProperty(window,'parent',{get:function(){return window}})}catch(e){}</script><style>::-webkit-scrollbar{display:none!important;width:0!important}html,body{scrollbar-width:none!important;-ms-overflow-style:none!important}</style>`;
     const baseTag = `<base href="${origin}/">`;
     html = html.replace(/<head([^>]*)>/i, `<head$1>${safeScript}${baseTag}`);
 

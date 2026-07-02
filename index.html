@@ -982,6 +982,18 @@
       border-radius: 44px;
     }
 
+    /* Real iPhone viewport (390px wide) scaled down to fit the screen */
+    .phone-scale-wrap {
+      position: absolute;
+      top: 0; left: 0;
+      width: 390px;
+      transform-origin: top left;
+    }
+    .phone-scale-wrap iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+    }
+
     /* Static mobile mockups inside phone screen */
     .showcase-mockup {
       position: absolute; inset: 0;
@@ -1340,11 +1352,12 @@
                 <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.08em;">loading...</span>
               </div>
 
-              <!-- Live proxy iframe -->
-              <iframe id="showcaseIframe"
-                src="/api/proxy?url=https://paply.me"
-                style="width:100%;height:100%;border:none;display:block;"
-                title="site preview"></iframe>
+              <!-- Live proxy iframe — rendered at real iPhone viewport (390px), scaled to fit -->
+              <div class="phone-scale-wrap">
+                <iframe id="showcaseIframe"
+                  src="/api/proxy?url=https://paply.me"
+                  title="site preview"></iframe>
+              </div>
 
             </div><!-- /.showcase-screen -->
             </div><!-- /.showcase-screen-area -->
@@ -1534,6 +1547,22 @@
         showcaseIframe.addEventListener('load', hideLoader);
         // hide loader on initial load too
         showLoader();
+      }
+
+      // Scale the 390px iPhone viewport down to fit the phone screen
+      const phoneScreen = document.getElementById('showcaseScreen');
+      const phoneWrap = document.querySelector('.phone-scale-wrap');
+      function scalePhone() {
+        if (!phoneScreen || !phoneWrap) return;
+        const w = phoneScreen.clientWidth;
+        const h = phoneScreen.clientHeight;
+        const scale = w / 390;
+        phoneWrap.style.transform = `scale(${scale.toFixed(4)})`;
+        phoneWrap.style.height = `${Math.ceil(h / scale)}px`;
+      }
+      if (phoneScreen && phoneWrap) {
+        new ResizeObserver(scalePhone).observe(phoneScreen);
+        scalePhone();
       }
 
       function switchMockup(site) {
