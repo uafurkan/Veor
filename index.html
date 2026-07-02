@@ -885,17 +885,17 @@
     /* ── Showcase Phone — iPhone 15/16 Pro style ── */
     .showcase-phone { flex-shrink: 0; }
 
+    /* Metallic outer frame — glossy titanium rim like a real device photo */
     .showcase-phone-body {
-      width: 248px;
-      border-radius: 46px;
-      /* Titanium-style dark frame */
-      background: linear-gradient(160deg, #2a2a2c 0%, #1a1a1c 50%, #111 100%);
-      padding: 9px 7px 16px;
+      width: 258px;
+      border-radius: 56px;
+      background: linear-gradient(145deg, #6a6a6e 0%, #2a2a2e 12%, #131315 30%, #0c0c0e 55%, #232326 82%, #57575b 100%);
+      padding: 3px;
       box-shadow:
-        0 0 0 0.5px rgba(255,255,255,0.18),
-        inset 0 0 0 0.5px rgba(255,255,255,0.06),
-        0 50px 100px rgba(0,0,0,0.95),
-        0 20px 40px rgba(0,0,0,0.6);
+        0 0 0 1px rgba(0,0,0,0.9),
+        0 60px 120px rgba(0,0,0,0.9),
+        0 24px 48px rgba(0,0,0,0.6),
+        0 4px 12px rgba(0,0,0,0.5);
       position: relative;
     }
 
@@ -903,91 +903,56 @@
     .showcase-phone-body::before {
       content: '';
       position: absolute;
-      right: -2px; top: 110px;
-      width: 2px; height: 56px;
-      background: #2a2a2c;
-      border-radius: 0 2px 2px 0;
+      right: -2.5px; top: 138px;
+      width: 3px; height: 62px;
+      background: linear-gradient(90deg, #1a1a1c, #4a4a4e);
+      border-radius: 0 3px 3px 0;
     }
 
-    /* Volume buttons — left */
+    /* Action + volume buttons — left */
     .showcase-phone-body::after {
       content: '';
       position: absolute;
-      left: -2px; top: 90px;
-      width: 2px; height: 36px;
-      background: #2a2a2c;
-      border-radius: 2px 0 0 2px;
-      box-shadow: 0 48px 0 #2a2a2c;
+      left: -2.5px; top: 100px;
+      width: 3px; height: 26px;
+      background: linear-gradient(90deg, #4a4a4e, #1a1a1c);
+      border-radius: 3px 0 0 3px;
+      box-shadow: 0 40px 0 #2e2e32, 0 76px 0 #2e2e32;
     }
 
-    /* Screen area — edge-to-edge */
+    /* Black bezel between rim and screen */
     .showcase-screen-area {
-      border-radius: 40px;
+      border-radius: 53px;
       overflow: hidden;
       background: #000;
+      padding: 10px;
       position: relative;
     }
 
-    /* Status bar row — time left, DI center, icons right */
-    .showcase-statusbar {
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 18px 0;
-      position: relative;
-      z-index: 10;
-    }
+    /* Old statusbar/chin removed — screen is edge-to-edge like a real device */
+    .showcase-statusbar, .showcase-chin { display: none; }
 
-    .statusbar-time {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.88);
-      letter-spacing: -0.02em;
-    }
-
-    .statusbar-icons {
-      display: flex; align-items: center; gap: 5px;
-    }
-    .statusbar-icons svg {
-      width: 15px; height: 11px;
-      fill: rgba(255,255,255,0.8);
-    }
-
-    /* Dynamic Island — absolute pill at top center of screen */
+    /* Dynamic Island — floating pill over the screen */
     .showcase-dynamic-island {
       position: absolute;
-      top: 8px; left: 50%;
+      top: 20px; left: 50%;
       transform: translateX(-50%);
-      width: 100px; height: 32px;
+      width: 96px; height: 28px;
       background: #000;
-      border-radius: 22px;
+      border-radius: 20px;
       z-index: 20;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04),
-        0 2px 12px rgba(0,0,0,0.9);
+      box-shadow: 0 0 0 0.5px rgba(255,255,255,0.05);
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding-right: 10px;
-      gap: 6px;
+      padding-right: 9px;
+      gap: 5px;
     }
 
-    /* Proximity sensor dot */
-    .showcase-dynamic-island::before {
-      content: '';
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: #0a0a0a;
-      border: 1px solid rgba(255,255,255,0.04);
-      margin-right: 4px;
-    }
-
-    /* Camera dot */
+    /* Camera dot inside the island */
     .showcase-dynamic-island::after {
       content: '';
-      width: 10px; height: 10px;
+      width: 9px; height: 9px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #1c3d5e, #060d14);
       box-shadow:
@@ -995,12 +960,26 @@
         inset 0 0 4px rgba(0,80,200,0.2);
     }
 
+    /* Home indicator — overlay at the bottom of the screen */
+    .showcase-screen-area::after {
+      content: '';
+      position: absolute;
+      bottom: 16px; left: 50%;
+      transform: translateX(-50%);
+      width: 96px; height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.35);
+      z-index: 20;
+      pointer-events: none;
+    }
+
     /* Phone screen content area */
     .showcase-screen {
       overflow: hidden;
       position: relative;
       background: #000;
-      height: 490px;
+      height: 520px;
+      border-radius: 44px;
     }
 
     /* Static mobile mockups inside phone screen */
