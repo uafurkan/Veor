@@ -65,8 +65,10 @@ export default async function handler(req, res) {
     const upstreamPath = parsed.pathname + parsed.search;
     const safeScript = `<script>try{history.replaceState(null,'',${JSON.stringify(upstreamPath)})}catch(e){}
 try{window.onerror=function(){return true};window.addEventListener('error',function(e){e.preventDefault();e.stopPropagation()},true);window.addEventListener('unhandledrejection',function(e){e.preventDefault()},true);Object.defineProperty(window,'top',{get:function(){return window}});Object.defineProperty(window,'parent',{get:function(){return window}})}catch(e){}</script><style>::-webkit-scrollbar{display:none!important;width:0!important}html,body{scrollbar-width:none!important;-ms-overflow-style:none!important}</style>`;
-    const baseTag = `<base href="${origin}/">`;
-    html = html.replace(/<head([^>]*)>/i, `<head$1>${safeScript}${baseTag}`);
+    // NOTE: no <base> tag — runtime fetches must resolve against OUR origin
+    // so /api/fallback can proxy them; a base tag pointing at the upstream
+    // makes those fetches cross-origin and CORS kills Next.js hydration.
+    html = html.replace(/<head([^>]*)>/i, `<head$1>${safeScript}`);
 
     // Serve without frame-busting headers
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
