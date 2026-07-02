@@ -905,20 +905,20 @@
     .mac-chrome-tabstrip {
       display: flex;
       align-items: flex-end;
-      padding: 8px 12px 0;
+      padding: 5px 10px 0;
       gap: 0;
       background: #202124;
     }
     .mac-chrome-dots {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       align-items: center;
       flex-shrink: 0;
-      padding-bottom: 8px;
-      margin-right: 14px;
+      padding-bottom: 5px;
+      margin-right: 10px;
     }
     .mac-chrome-dots span {
-      width: 12px; height: 12px;
+      width: 10px; height: 10px;
       border-radius: 50%;
     }
     .mac-dot-red { background: #ff5f57; box-shadow: 0 0 0 0.5px rgba(0,0,0,0.3); }
@@ -928,12 +928,12 @@
     .mac-chrome-tab {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: #35363a;
-      border-radius: 8px 8px 0 0;
-      padding: 7px 10px 8px 10px;
-      min-width: 160px;
-      max-width: 220px;
+      border-radius: 7px 7px 0 0;
+      padding: 5px 8px 5px 8px;
+      min-width: 130px;
+      max-width: 190px;
       position: relative;
       cursor: default;
     }
@@ -941,33 +941,33 @@
     .mac-chrome-tab::before {
       content: '';
       position: absolute;
-      bottom: 0; left: -8px;
-      width: 8px; height: 8px;
+      bottom: 0; left: -6px;
+      width: 6px; height: 6px;
       background: radial-gradient(circle at 0% 0%, transparent 70%, #35363a 70%);
     }
     /* right curve */
     .mac-chrome-tab::after {
       content: '';
       position: absolute;
-      bottom: 0; right: -8px;
-      width: 8px; height: 8px;
+      bottom: 0; right: -6px;
+      width: 6px; height: 6px;
       background: radial-gradient(circle at 100% 0%, transparent 70%, #35363a 70%);
     }
     .mac-tab-favicon {
-      width: 16px; height: 16px;
+      width: 14px; height: 14px;
       border-radius: 3px;
       flex-shrink: 0;
       background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 100%);
       display: flex; align-items: center; justify-content: center;
       font-family: -apple-system, 'Inter', sans-serif;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 600;
       color: rgba(255,255,255,0.7);
     }
     .mac-tab-title {
       flex: 1;
       font-family: -apple-system, 'Inter', sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 400;
       color: rgba(255,255,255,0.85);
       overflow: hidden;
@@ -975,21 +975,21 @@
       text-overflow: ellipsis;
     }
     .mac-tab-close {
-      width: 16px; height: 16px;
+      width: 14px; height: 14px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 10px;
+      font-size: 9px;
       color: rgba(255,255,255,0.4);
       flex-shrink: 0;
     }
     .mac-tab-close:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
     .mac-chrome-newtab {
-      width: 28px; height: 28px;
+      width: 22px; height: 22px;
       display: flex; align-items: center; justify-content: center;
       color: rgba(255,255,255,0.35);
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 300;
-      padding-bottom: 4px;
+      padding-bottom: 3px;
       flex-shrink: 0;
     }
 
@@ -997,18 +997,18 @@
     .mac-chrome-toolbar {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 12px 8px;
+      gap: 4px;
+      padding: 4px 10px 5px;
       background: #35363a;
       border-top: 1px solid rgba(255,255,255,0.06);
     }
     .mac-chrome-nav {
       display: flex;
-      gap: 2px;
+      gap: 1px;
       flex-shrink: 0;
     }
     .mac-chrome-nav button {
-      width: 28px; height: 28px;
+      width: 22px; height: 22px;
       background: none;
       border: none;
       border-radius: 50%;
@@ -1016,15 +1016,15 @@
       cursor: default;
       color: rgba(255,255,255,0.35);
     }
-    .mac-chrome-nav button svg { width: 16px; height: 16px; }
+    .mac-chrome-nav button svg { width: 13px; height: 13px; }
     .mac-chrome-url {
       flex: 1;
       background: #202124;
-      border-radius: 20px;
-      padding: 6px 14px;
+      border-radius: 16px;
+      padding: 4px 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       border: 1px solid rgba(255,255,255,0.08);
       cursor: text;
     }
@@ -1032,7 +1032,7 @@
     .mac-chrome-url svg { flex-shrink: 0; color: rgba(255,255,255,0.4); }
     .mac-chrome-url-text {
       font-family: -apple-system, 'Inter', sans-serif;
-      font-size: 12.5px;
+      font-size: 11px;
       color: rgba(255,255,255,0.65);
       overflow: hidden;
       white-space: nowrap;
@@ -1043,11 +1043,11 @@
     .mac-chrome-url-scheme { color: rgba(255,255,255,0.3); }
     .mac-chrome-menu {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       flex-shrink: 0;
     }
     .mac-chrome-menu button {
-      width: 28px; height: 28px;
+      width: 22px; height: 22px;
       background: none;
       border: none;
       border-radius: 50%;
@@ -1055,7 +1055,7 @@
       cursor: default;
       color: rgba(255,255,255,0.4);
     }
-    .mac-chrome-menu button svg { width: 16px; height: 16px; }
+    .mac-chrome-menu button svg { width: 13px; height: 13px; }
 
     .mac-scale-wrap {
       position: absolute;
