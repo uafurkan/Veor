@@ -405,27 +405,16 @@
     .logo-salary { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 14px; color: #f0f0f0; letter-spacing: 0.04em; }
     .logo-salary .dollar { color: #2ecc71; }
 
-    /* Flip effect ported from s4l4ry.com's own credit-card mock (rotateY 180°, 0.6s) */
-    .flip-logo { perspective: 300px; }
-    .flip-inner {
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.6s;
+    /* Dollar sign spin — ported from s4l4ry.com logo animation */
+    @keyframes dollar-spin {
+      0%   { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
     }
-    .card:hover .flip-inner { transform: rotateY(180deg); }
-    .flip-front, .flip-back {
-      backface-visibility: hidden;
+    .logo-salary .dollar {
+      display: inline-block;
     }
-    .flip-back {
-      position: absolute;
-      inset: 0;
-      transform: rotateY(180deg);
-      display: flex;
-      align-items: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      font-size: 14px;
-      color: #2ecc71;
+    .card:hover .logo-salary .dollar {
+      animation: dollar-spin 0.7s ease-in-out;
     }
 
     .logo-dine { display: flex; flex-direction: column; line-height: 1.15; gap: 1px; }
@@ -984,11 +973,8 @@
         <!-- s4l4ry.com -->
         <a class="card reveal" style="transition-delay:.13s" href="https://s4l4ry.com" target="_blank" rel="noopener">
           <div class="card-top">
-            <div class="card-logo flip-logo">
-              <div class="flip-inner">
-                <span class="logo-salary flip-front">S<span class="dollar">$</span>L<span class="dollar">$</span>RY</span>
-                <span class="flip-back">$$$</span>
-              </div>
+            <div class="card-logo">
+              <span class="logo-salary">S<span class="dollar">$</span>L<span class="dollar">$</span>RY</span>
             </div>
             <div style="display:flex;align-items:center;gap:6px">
               <span class="card-num">02</span>
