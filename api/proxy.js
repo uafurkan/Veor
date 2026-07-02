@@ -72,6 +72,8 @@ try{window.onerror=function(){return true};window.addEventListener('error',funct
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=30');
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    // Tell /api/fallback which upstream to route runtime requests to
+    res.setHeader('Set-Cookie', `veor_up=${encodeURIComponent(parsed.hostname)}; Path=/; SameSite=Lax; Max-Age=600`);
     res.status(upstream.status).send(html);
   } catch (err) {
     res.status(502).send('Proxy fetch failed: ' + err.message);
