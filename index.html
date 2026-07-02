@@ -405,16 +405,39 @@
     .logo-salary { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 14px; color: #f0f0f0; letter-spacing: 0.04em; }
     .logo-salary .dollar { color: #2ecc71; }
 
-    /* Dollar sign spin — ported from s4l4ry.com logo animation */
-    @keyframes dollar-spin {
-      0%   { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
-    }
-    .logo-salary .dollar {
+    /* s4l4ry logo dollar-swap animation — ported from s4l4ry.com style.css */
+    .logo-core {
+      position: relative;
       display: inline-block;
     }
-    .card:hover .logo-salary .dollar {
-      animation: dollar-spin 0.7s ease-in-out;
+    .logo-l {
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 0 8px #000, 0 0 12px #000;
+    }
+    .logo-dollar { display: inline-block; }
+    .logo-dollar::after { content: "$"; color: #2ecc71; }
+    .anim-d1 {
+      position: absolute;
+      left: 0; top: 0;
+      z-index: 1;
+      animation: salarySwapRight 3s cubic-bezier(0.45,0,0.55,1) infinite alternate;
+    }
+    .anim-d2 {
+      position: absolute;
+      right: 0; top: 0;
+      z-index: 1;
+      animation: salarySwapLeft 3s cubic-bezier(0.45,0,0.55,1) infinite alternate;
+    }
+    @keyframes salarySwapRight {
+      0%, 15%   { left: 0;    transform: scale(1);              opacity: 1; filter: blur(0); }
+      50%       { left: 50%;  transform: translateX(-50%) scale(0.5); opacity: 0; filter: blur(2px); }
+      85%, 100% { left: 100%; transform: translateX(-100%) scale(1);  opacity: 1; filter: blur(0); }
+    }
+    @keyframes salarySwapLeft {
+      0%, 15%   { right: 0;    transform: scale(1);             opacity: 1; filter: blur(0); }
+      50%       { right: 50%;  transform: translateX(50%) scale(0.5); opacity: 0; filter: blur(2px); }
+      85%, 100% { right: 100%; transform: translateX(100%) scale(1);  opacity: 1; filter: blur(0); }
     }
 
     .logo-dine { display: flex; flex-direction: column; line-height: 1.15; gap: 1px; }
@@ -974,7 +997,7 @@
         <a class="card reveal" style="transition-delay:.13s" href="https://s4l4ry.com" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-logo">
-              <span class="logo-salary">S<span class="dollar">$</span>L<span class="dollar">$</span>RY</span>
+              <span class="logo-salary">S<span class="logo-core"><span style="visibility:hidden" aria-hidden="true">$</span><span class="logo-l">L</span><span style="visibility:hidden" aria-hidden="true">$</span><span class="logo-dollar anim-d1"></span><span class="logo-dollar anim-d2"></span></span>RY</span>
             </div>
             <div style="display:flex;align-items:center;gap:6px">
               <span class="card-num">02</span>
