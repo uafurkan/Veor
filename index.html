@@ -405,6 +405,49 @@
     .logo-salary { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 14px; color: #f0f0f0; letter-spacing: 0.04em; }
     .logo-salary .dollar { color: #2ecc71; }
 
+    /* ── paply.me card: paper-plane flight animation — ported from furkanjob/styles/app.css ── */
+    .card-flight {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; overflow: visible;
+    }
+    .card-flight-origin { fill: #7CE0D3; opacity: .55; }
+    .card-flight-path {
+      stroke: #7CE0D3; stroke-width: 1.5; stroke-opacity: .35;
+      stroke-dasharray: 1.5 7; stroke-linecap: round;
+      animation: cf-dash 1.4s linear infinite;
+    }
+    .card-flight-glow { animation: cf-glow 6.5s ease-in-out infinite; }
+    .card-flight-target { opacity: 0; animation: cf-arrive 6.5s ease-in-out infinite; }
+    .card-flight-plane {
+      offset-path: path("M38,186 C100,130 180,170 268,88");
+      offset-rotate: auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+      animation: cf-fly 6.5s cubic-bezier(.42,.04,.32,1) infinite;
+    }
+    @keyframes cf-dash { to { stroke-dashoffset: -8.5; } }
+    @keyframes cf-fly {
+      0%   { offset-distance: 0%;   opacity: 0; }
+      9%   { opacity: 1; }
+      86%  { opacity: 1; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+    @keyframes cf-glow {
+      0%, 78% { opacity: 0; }
+      88%     { opacity: .9; }
+      100%    { opacity: 0; }
+    }
+    @keyframes cf-arrive {
+      0%, 80% { opacity: 0; transform: scale(.6); }
+      90%     { opacity: 1; transform: scale(1); }
+      100%    { opacity: .85; transform: scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card-flight-path, .card-flight-glow, .card-flight-plane, .card-flight-target { animation: none; }
+      .card-flight-plane { offset-distance: 80%; opacity: 1; }
+      .card-flight-target { opacity: 1; }
+      .card-flight-glow { opacity: .5; }
+    }
+
     /* s4l4ry logo dollar-swap animation — ported from s4l4ry.com style.css */
     .logo-core {
       position: relative;
@@ -991,6 +1034,27 @@
             <span class="tag">applications</span>
           </div>
           <p class="card-domain">paply.me ↗</p>
+
+          <!-- Paper-plane flight animation — ported from paply.me (furkanjob) -->
+          <svg class="card-flight" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <radialGradient id="cfGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#7CE0D3" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#7CE0D3" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle class="card-flight-origin" cx="38" cy="186" r="4"/>
+            <path class="card-flight-path" d="M38,186 C100,130 180,170 268,88" fill="none"/>
+            <circle class="card-flight-glow" cx="268" cy="88" r="18" fill="url(#cfGlow)"/>
+            <g class="card-flight-target" transform="translate(268 88)">
+              <circle r="8" fill="none" stroke="#7CE0D3" stroke-width="2"/>
+              <path d="M-3.5,0 L-1,2.5 L4,-3" fill="none" stroke="#7CE0D3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="card-flight-plane">
+              <path d="M13,0 L-12,-9 L-4,0 L-12,9 Z" fill="#FFFFFF"/>
+              <path d="M13,0 L-4,0 L-12,9 Z" fill="#5A93F0" fill-opacity="0.65"/>
+            </g>
+          </svg>
         </a>
 
         <!-- s4l4ry.com -->
