@@ -994,6 +994,87 @@
       border: none; display: block;
     }
 
+    /* ── Showcase MacBook — desktop only ── */
+    .showcase-macbook {
+      flex-shrink: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Dark aluminum lid around the screen */
+    .mac-screen-body {
+      width: clamp(440px, 52vw, 720px);
+      background: linear-gradient(180deg, #2a2a2c 0%, #161618 6%, #0c0c0d 100%);
+      border-radius: 20px;
+      padding: 13px 13px 22px;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.09),
+        inset 0 0 0 1px rgba(0,0,0,0.6),
+        0 50px 100px rgba(0,0,0,0.85),
+        0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    /* Camera notch hanging into the screen */
+    .mac-notch {
+      position: absolute;
+      top: 13px; left: 50%;
+      transform: translateX(-50%);
+      width: 108px; height: 15px;
+      background: #0c0c0d;
+      border-radius: 0 0 8px 8px;
+      z-index: 30;
+    }
+    .mac-notch::after {
+      content: '';
+      position: absolute;
+      top: 4px; left: 50%;
+      transform: translateX(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1c3d5e, #060d14);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.8);
+    }
+
+    /* Screen — proxy iframe rendered at 1280px, scaled to fit */
+    .mac-screen {
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+      height: 420px;
+    }
+    .mac-scale-wrap {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1280px;
+      transform-origin: top left;
+    }
+    .mac-scale-wrap iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+    }
+
+    /* Silver aluminum base with trackpad-notch cutout */
+    .mac-base {
+      width: calc(100% + 76px);
+      height: 17px;
+      background: linear-gradient(180deg, #c8c8cc 0%, #9a9a9e 40%, #6e6e72 85%, #3a3a3e 100%);
+      border-radius: 2px 2px 14px 14px;
+      position: relative;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.6);
+    }
+    .mac-base::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 8px;
+      background: linear-gradient(180deg, #7e7e82, #ababaf);
+      border-radius: 0 0 9px 9px;
+    }
+
     /* Static mobile mockups inside phone screen */
     .showcase-mockup {
       position: absolute; inset: 0;
@@ -1102,8 +1183,11 @@
     }
     .showcase-site-link:hover { color: #888; }
 
-    /* Hide on desktop, show only on mobile */
-    @media (min-width: 601px) { .phone-showcase { display: none !important; } }
+    /* Device swap: iPhone on mobile, MacBook on desktop */
+    @media (min-width: 601px) {
+      .showcase-phone { display: none; }
+      .showcase-macbook { display: flex; }
+    }
 
     @media (max-width: 700px) {
       .phone-showcase { padding: 48px 20px 72px; gap: 40px; }
@@ -1180,18 +1264,6 @@
             </div>
           </div>
 
-          <div class="card-preview">
-            <div class="browser-chrome">
-              <span class="browser-dots"><b></b><b></b><b></b></span>
-              <span class="browser-url">paply.me</span>
-            </div>
-            <div class="browser-canvas">
-              <div class="browser-scale-wrap">
-                <iframe src="/api/proxy?url=https://paply.me" loading="lazy" tabindex="-1" title="paply.me preview" aria-hidden="true"></iframe>
-              </div>
-            </div>
-          </div>
-
           <div class="card-body">
             <p class="card-name">paply.me</p>
             <p class="card-desc">AI-powered job application toolkit. Apply smarter, track progress, and land roles faster with intelligent automation.</p>
@@ -1215,18 +1287,6 @@
               <svg class="card-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M4 16L16 4M16 4H8M16 4V12" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </div>
-          </div>
-
-          <div class="card-preview">
-            <div class="browser-chrome">
-              <span class="browser-dots"><b></b><b></b><b></b></span>
-              <span class="browser-url">s4l4ry.com</span>
-            </div>
-            <div class="browser-canvas">
-              <div class="browser-scale-wrap">
-                <iframe src="/api/proxy?url=https://s4l4ry.com" loading="lazy" tabindex="-1" title="s4l4ry.com preview" aria-hidden="true"></iframe>
-              </div>
             </div>
           </div>
 
@@ -1259,17 +1319,6 @@
             </div>
           </div>
 
-          <div class="card-preview">
-            <div class="browser-chrome">
-              <span class="browser-dots"><b></b><b></b><b></b></span>
-              <span class="browser-url">dinememento.com</span>
-            </div>
-            <div class="browser-canvas">
-              <div class="browser-scale-wrap">
-                <iframe src="/api/proxy?url=https://dinememento.com" loading="lazy" tabindex="-1" title="dinememento preview" aria-hidden="true"></iframe>
-              </div>
-            </div>
-          </div>
 
           <div class="card-body">
             <p class="card-name">dinememento</p>
@@ -1288,7 +1337,7 @@
 
     <!-- ══ Interactive Phone Showcase ══ -->
     <section class="phone-showcase" id="showcase">
-      <p class="section-label reveal showcase-label">// live preview — try it on mobile</p>
+      <p class="section-label reveal showcase-label">// live preview — switch between products</p>
 
       <div class="showcase-inner reveal" style="transition-delay:.1s">
 
@@ -1363,6 +1412,25 @@
             </div><!-- /.showcase-screen-area -->
           </div><!-- /.showcase-phone-body -->
         </div><!-- /.showcase-phone -->
+
+        <!-- MacBook — desktop only -->
+        <div class="showcase-macbook">
+          <div class="mac-screen-body">
+            <div class="mac-notch"></div>
+            <div class="mac-screen" id="macScreen">
+              <div id="macLoader" style="position:absolute;inset:0;z-index:10;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;pointer-events:none;">
+                <div style="width:28px;height:28px;border:2px solid rgba(255,255,255,0.1);border-top-color:rgba(255,255,255,0.7);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.08em;">loading...</span>
+              </div>
+              <div class="mac-scale-wrap">
+                <iframe id="macIframe"
+                  src="/api/proxy?url=https://paply.me"
+                  title="site preview"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="mac-base"></div>
+        </div><!-- /.showcase-macbook -->
 
       </div>
 
@@ -1480,38 +1548,7 @@
       card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
 
-    /* ── Card preview iframe scale ── */
-    (function initCardScale() {
-      function scaleCanvas(canvas) {
-        const wrap = canvas.querySelector('.browser-scale-wrap');
-        if (!wrap) return;
-        const w = canvas.clientWidth;
-        if (w <= 0) return;
-        wrap.style.transform = `scale(${(w / 1280).toFixed(4)})`;
-      }
-      const ro = new ResizeObserver(entries => entries.forEach(e => scaleCanvas(e.target)));
-      document.querySelectorAll('.browser-canvas').forEach(c => { ro.observe(c); scaleCanvas(c); });
-
-      document.querySelectorAll('.browser-canvas iframe').forEach(iframe => {
-        iframe.addEventListener('load', function () {
-          try {
-            void this.contentWindow.location.href;
-          } catch (_) {
-            const fb = this.closest('.browser-canvas')?.querySelector('.preview-fallback');
-            if (fb) fb.classList.add('loaded');
-          }
-        });
-        // proxy is same-origin → treat successful load as real content
-        iframe.addEventListener('load', function () {
-          if (this.src.includes('/api/proxy')) {
-            const fb = this.closest('.browser-canvas')?.querySelector('.preview-fallback');
-            if (fb) fb.classList.add('loaded');
-          }
-        });
-      });
-    })();
-
-    /* ── Showcase phone — mockup switcher ── */
+    /* ── Showcase — device switcher ── */
     (function initShowcase() {
       const showcaseTime = document.getElementById('showcaseTime');
       const siteName = document.getElementById('showcaseSiteName');
@@ -1532,42 +1569,39 @@
       updateClock();
       setInterval(updateClock, 30000);
 
-      // Switch live iframe src
-      const showcaseLoader = document.getElementById('showcaseLoader');
-      const showcaseIframe = document.getElementById('showcaseIframe');
+      // Devices: iPhone (mobile) + MacBook (desktop) share the selectors
+      const devices = [
+        { iframe: document.getElementById('showcaseIframe'), loader: document.getElementById('showcaseLoader') },
+        { iframe: document.getElementById('macIframe'),      loader: document.getElementById('macLoader') }
+      ].filter(d => d.iframe);
 
-      function showLoader() {
-        if (showcaseLoader) showcaseLoader.style.display = 'flex';
-      }
-      function hideLoader() {
-        if (showcaseLoader) { showcaseLoader.style.opacity = '0'; setTimeout(() => { showcaseLoader.style.display = 'none'; showcaseLoader.style.opacity = '1'; }, 400); }
-      }
+      devices.forEach(d => {
+        d.iframe.addEventListener('load', () => {
+          if (!d.loader) return;
+          d.loader.style.opacity = '0';
+          setTimeout(() => { d.loader.style.display = 'none'; d.loader.style.opacity = '1'; }, 400);
+        });
+      });
 
-      if (showcaseIframe) {
-        showcaseIframe.addEventListener('load', hideLoader);
-        // hide loader on initial load too
-        showLoader();
+      // Scale a fixed-viewport wrap down to fit its screen container
+      function bindScale(screenEl, wrapEl, viewportW) {
+        if (!screenEl || !wrapEl) return;
+        function apply() {
+          const scale = screenEl.clientWidth / viewportW;
+          wrapEl.style.transform = `scale(${scale.toFixed(4)})`;
+          wrapEl.style.height = `${Math.ceil(screenEl.clientHeight / scale)}px`;
+        }
+        new ResizeObserver(apply).observe(screenEl);
+        apply();
       }
-
-      // Scale the 390px iPhone viewport down to fit the phone screen
-      const phoneScreen = document.getElementById('showcaseScreen');
-      const phoneWrap = document.querySelector('.phone-scale-wrap');
-      function scalePhone() {
-        if (!phoneScreen || !phoneWrap) return;
-        const w = phoneScreen.clientWidth;
-        const h = phoneScreen.clientHeight;
-        const scale = w / 390;
-        phoneWrap.style.transform = `scale(${scale.toFixed(4)})`;
-        phoneWrap.style.height = `${Math.ceil(h / scale)}px`;
-      }
-      if (phoneScreen && phoneWrap) {
-        new ResizeObserver(scalePhone).observe(phoneScreen);
-        scalePhone();
-      }
+      bindScale(document.getElementById('showcaseScreen'), document.querySelector('.phone-scale-wrap'), 390);
+      bindScale(document.getElementById('macScreen'), document.querySelector('.mac-scale-wrap'), 1280);
 
       function switchMockup(site) {
-        showLoader();
-        if (showcaseIframe) showcaseIframe.src = `/api/proxy?url=https://${site}`;
+        devices.forEach(d => {
+          if (d.loader) d.loader.style.display = 'flex';
+          d.iframe.src = `/api/proxy?url=https://${site}`;
+        });
 
         const info = siteInfo[site] || { desc: site, url: '#' };
         if (siteName) siteName.textContent = site;
